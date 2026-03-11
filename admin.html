@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Admin FixScooter</title>
+</head>
+
+<body>
+
+<h2>Panel administrador</h2>
+
+<input id="nombre" placeholder="Nombre producto"><br><br>
+<input id="precio" placeholder="Precio"><br><br>
+<input id="categoria" placeholder="Categoria"><br><br>
+<input id="imagen" placeholder="URL imagen"><br><br>
+
+<button onclick="agregar()">Agregar producto</button>
+
+<h2>Productos</h2>
+
+<div id="lista"></div>
+
+<script src="productos.js"></script>
+
+<script>
+
+function mostrar(){
+
+let lista=document.getElementById("lista")
+
+lista.innerHTML=""
+
+productos.forEach((p,i)=>{
+
+lista.innerHTML+=`
+
+<p>
+
+${p.nombre} - $${p.precio}
+
+<button onclick="borrar(${i})">Eliminar</button>
+
+</p>
+
+`
+
+})
+
+}
+
+function agregar(){
+
+let nombre=document.getElementById("nombre").value
+let precio=document.getElementById("precio").value
+let categoria=document.getElementById("categoria").value
+let imagen=document.getElementById("imagen").value
+
+productos.push({nombre,precio,categoria,imagen})
+
+guardarProductos()
+
+mostrar()
+
+}
+
+function borrar(i){
+
+productos.splice(i,1)
+
+guardarProductos()
+
+mostrar()
+
+}
+
+mostrar()
+
+</script>
+
+</body>
+</html>

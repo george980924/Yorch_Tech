@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>FixScooter Store</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f2f2f2;
+}
+
+header{
+background:black;
+color:white;
+text-align:center;
+padding:15px;
+font-size:22px;
+}
+
+.buscar{
+text-align:center;
+padding:15px;
+}
+
+.buscar input{
+width:80%;
+padding:10px;
+border:2px solid orange;
+border-radius:6px;
+}
+
+.categorias{
+text-align:center;
+}
+
+.categorias button{
+padding:8px;
+margin:5px;
+border:none;
+background:#ddd;
+border-radius:6px;
+}
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:15px;
+padding:15px;
+}
+
+.producto{
+background:white;
+border-radius:10px;
+padding:10px;
+text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.producto img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.precio{
+color:green;
+font-weight:bold;
+}
+
+.btn{
+background:#25D366;
+color:white;
+padding:8px;
+border-radius:6px;
+display:inline-block;
+margin-top:5px;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>FixScooter</header>
+
+<div class="buscar">
+<input id="buscar" placeholder="Buscar producto">
+</div>
+
+<div class="categorias">
+
+<button onclick="filtrar('todos')">Todos</button>
+<button onclick="filtrar('aire')">Aire</button>
+<button onclick="filtrar('inversor')">Inversor</button>
+
+</div>
+
+<div class="productos" id="productos"></div>
+
+<script src="productos.js"></script>
+
+<script>
+
+let telefono="123456789"
+
+function mostrar(lista){
+
+let cont=document.getElementById("productos")
+
+cont.innerHTML=""
+
+lista.forEach(p=>{
+
+let link="https://wa.me/"+telefono+"?text=Hola quiero comprar "+p.nombre
+
+cont.innerHTML+=`
+
+<div class="producto">
+
+<img src="${p.imagen}">
+
+<h3>${p.nombre}</h3>
+
+<p class="precio">$${p.precio}</p>
+
+<a class="btn" href="${link}" target="_blank">Comprar</a>
+
+</div>
+
+`
+
+})
+
+}
+
+mostrar(productos)
+
+document.getElementById("buscar").addEventListener("keyup",function(){
+
+let texto=this.value.toLowerCase()
+
+let filtrados=productos.filter(p=>p.nombre.toLowerCase().includes(texto))
+
+mostrar(filtrados)
+
+})
+
+function filtrar(cat){
+
+if(cat=="todos"){
+mostrar(productos)
+return
+}
+
+let filtrados=productos.filter(p=>p.categoria==cat)
+
+mostrar(filtrados)
+
+}
+
+</script>
+
+</body>
+</html>
