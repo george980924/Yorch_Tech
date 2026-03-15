@@ -80,12 +80,36 @@ text-decoration:none;
 }
 
 .titulo{
-text-align:center;
-font-size:50px;
+position:absolute;
+top:130px;
+left:50%;
+transform:translateX(-50%);
+font-size:45px;
 color:black;
 font-weight:bold;
-margin-top:10px;
-letter-spacing:3px;
+text-shadow:2px 2px 5px white;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:28px;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+z-index:1000;
+}
+
+.whatsapp:hover{
+transform:scale(1.1);
 }
 
 </style>
@@ -96,7 +120,7 @@ letter-spacing:3px;
 
 <header style="position:relative">
 
-<img src="banner.png?v=3" style="width:100%; height:200px; object-fit:cover;">
+<img src="banner.jpg?v=2" style="width:100%; height:200px; object-fit:cover;">
 
 <div style="position:absolute; top:40px; left:50%; transform:translateX(-50%); text-align:center;">
 
@@ -184,6 +208,10 @@ mostrar(filtrados)
 }
 
 </script>
+
+<a href="https://wa.me/5358103725" class="whatsapp" target="_blank">
+💬
+</a>
 
 </body>
 </html>
