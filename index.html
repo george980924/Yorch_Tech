@@ -36,11 +36,18 @@ text-align:center;
 }
 
 .categorias button{
-padding:8px;
+padding:10px 15px;
 margin:5px;
 border:none;
-background:#ddd;
-border-radius:6px;
+background:#ff9800;
+color:white;
+border-radius:20px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.categorias button:hover{
+background:#e68900;
 }
 
 .productos{
@@ -56,6 +63,12 @@ border-radius:10px;
 padding:10px;
 text-align:center;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.producto:hover{
+transform:translateY(-5px);
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
 }
 
 .producto img{
@@ -209,7 +222,7 @@ mostrar(filtrados)
 </script>
 
 <a href="https://wa.me/5358103725" class="whatsapp" target="_blank">
-💬
+<img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="35">
 </a>
 
 </body>
