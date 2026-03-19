@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>COMPONENTES ELECTRINICOS HOLGUÍN</title>
-
 <style>
 body{
     font-family:Arial;
@@ -164,8 +163,8 @@ input{
 
 <div class="categorias">
 <button onclick="filtrar('todos')">Todos</button>
-<button onclick="filtrar('aire')">Aire</button>
 <button onclick="filtrar('inversor')">Inversor</button>
+<button onclick="filtrar('Bms')">BMS</button>
 </div>
 
 <!-- FORMULARIO -->
@@ -193,8 +192,13 @@ input{
 <button onclick="enviarPedido()">Finalizar pedido</button>
 </div>
 
-<script src="productos.js"></script>
 <script>
+// Productos definidos directamente para que cargue inmediatamente
+let productos = [
+  { nombre:"Bms 4.2v 1A", precio:200, categoria:"Bms", imagen:"https://i.imgur.com/Wk4F6QH.jpg" },
+  { nombre:"Estaño 0.8mm", precio:180, categoria:"inversor", imagen:"https://i.imgur.com/8Km9tLL.jpg" }
+];
+
 let telefono="5358103725";
 let carrito=[];
 
