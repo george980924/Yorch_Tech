@@ -14,7 +14,3 @@ let productos = JSON.parse(localStorage.getItem("productos")) || [
     info: "c/u 180 x cant"
   }
 ];
-
-function guardarProductos(){
-  localStorage.setItem("productos", JSON.stringify(productos));
-}
