@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>COMPONENTES ELECTRINICOS HOLGUÍN</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f2f2f2;
+}
+
+header{
+text-align:center;
+position:relative;
+}
+
+.buscar{
+text-align:center;
+padding:25px;
+}
+
+.buscar input{
+width:80%;
+padding:10px;
+border:2px solid orange;
+border-radius:6px;
+}
+
+.categorias{
+text-align:center;
+}
+
+.categorias button{
+padding:10px 15px;
+margin:5px;
+border:none;
+background:#ff9800;
+color:white;
+border-radius:20px;
+cursor:pointer;
+}
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:15px;
+padding:15px;
+}
+
+.producto{
+background:white;
+border-radius:10px;
+padding:10px;
+text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.producto img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
+
+.precio{
+color:green;
+font-weight:bold;
+}
+
+.btn{
+background:#25D366;
+color:white;
+padding:8px;
+border-radius:6px;
+border:none;
+cursor:pointer;
+}
+
+.titulo{
+font-size:45px;
+color:black;
+font-weight:bold;
+text-shadow:2px 2px 5px white;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:white;
+font-size:28px;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+}
+
+.carrito-icono{
+position:fixed;
+bottom:90px;
+right:20px;
+background:black;
+color:white;
+padding:10px 15px;
+border-radius:20px;
+cursor:pointer;
+}
+
+.carrito-panel{
+position:fixed;
+right:20px;
+bottom:140px;
+width:260px;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
+display:none;
+z-index:1000;
+max-height:300px;
+overflow-y:auto;
+}
+
+.item-carrito{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+}
+
+.controles button{
+margin:2px;
+padding:3px 6px;
+border:none;
+border-radius:4px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="banner.png?v=2" style="width:100%; height:200px; object-fit:cover;">
+
+<div style="position:absolute; top:40px; left:50%; transform:translateX(-50%); text-align:center;">
+<img src="logo.png?v=2" width="120">
+<h1 class="titulo">YORCH TECH</h1>
+</div>
+
+</header>
+
+<div class="buscar">
+<input id="buscar" placeholder="Buscar producto">
+</div>
+
+<div class="categorias">
+<button onclick="filtrar('todos')">Todos</button>
+<button onclick="filtrar('aire')">Aire</button>
+<button onclick="filtrar('inversor')">Inversor</button>
+</div>
+
+<!-- FORMULARIO -->
+<div style="padding:20px;text-align:center;">
+<h3>Datos del cliente</h3>
+
+<input id="nombre" placeholder="Nombre" style="width:80%;padding:8px;margin:5px;"><br>
+<input id="telefonoCliente" placeholder="Teléfono" style="width:80%;padding:8px;margin:5px;"><br>
+<input id="direccion" placeholder="Dirección" style="width:80%;padding:8px;margin:5px;"><br>
+<input id="referencia" placeholder="Referencia" style="width:80%;padding:8px;margin:5px;"><br>
+<input id="ubicacion" placeholder="Ubicación" style="width:80%;padding:8px;margin:5px;"><br>
+
+</div>
+
+<div class="productos" id="productos"></div>
+
+<!-- ICONO -->
+<div class="carrito-icono" onclick="toggleCarrito()">
+🛒 <span id="contador">0</span>
+</div>
+
+<!-- PANEL -->
+<div class="carrito-panel" id="carritoPanel">
+
+<h3>🛒 Carrito</h3>
+
+<div id="listaCarrito"></div>
+
+<p><strong>Total: $<span id="total">0</span></strong></p>
+
+<button onclick="enviarPedido()">Finalizar pedido</button>
+
+</div>
+
+<script src="productos.js"></script>
+
+<script>
+
+let telefono="5358103725"
+let carrito=[]
+
+// CONTADOR REAL
+function actualizarContador(){
+let total=0
+carrito.forEach(p=> total+=p.cantidad)
+document.getElementById("contador").innerText=total
+}
+
+// MOSTRAR CARRITO
+function mostrarCarrito(){
+
+let lista=document.getElementById("listaCarrito")
+let totalHTML=document.getElementById("total")
+
+lista.innerHTML=""
+let total=0
+
+carrito.forEach((p,i)=>{
+
+lista.innerHTML+=`
+<div class="item-carrito">
+<span>${p.nombre} ($${p.precio})</span>
+
+<div class="controles">
+<button onclick="restar(${i})">➖</button>
+${p.cantidad}
+<button onclick="sumar(${i})">➕</button>
+<button onclick="eliminar(${i})">❌</button>
+</div>
+
+</div>
+`
+
+total+=p.precio*p.cantidad
+
+})
+
+totalHTML.innerText=total
+
+}
+
+// FUNCIONES CARRITO
+function agregar(nombre,precio){
+
+let existe=carrito.find(p=>p.nombre===nombre)
+
+if(existe){
+existe.cantidad++
+}else{
+carrito.push({nombre,precio,cantidad:1})
+}
+
+actualizarContador()
+mostrarCarrito()
+document.getElementById("carritoPanel").style.display="block"
+
+}
+
+function sumar(i){
+carrito[i].cantidad++
+actualizarContador()
+mostrarCarrito()
+}
+
+function restar(i){
+carrito[i].cantidad--
+
+if(carrito[i].cantidad<=0){
+carrito.splice(i,1)
+}
+
+actualizarContador()
+mostrarCarrito()
+}
+
+function eliminar(i){
+carrito.splice(i,1)
+actualizarContador()
+mostrarCarrito()
+}
+
+// TOGGLE
+function toggleCarrito(){
+let panel=document.getElementById("carritoPanel")
+panel.style.display = (panel.style.display=="block") ? "none" : "block"
+}
+
+// MOSTRAR PRODUCTOS
+function mostrar(lista){
+
+let cont=document.getElementById("productos")
+cont.innerHTML=""
+
+lista.forEach(p=>{
+
+cont.innerHTML+=`
+<div class="producto">
+<img src="${p.imagen}">
+<h3>${p.nombre}</h3>
+<p class="precio">$${p.precio}</p>
+<button class="btn" onclick="agregar('${p.nombre}',${p.precio})">Agregar</button>
+</div>
+`
+
+})
+
+}
+
+mostrar(productos)
+
+// BUSCADOR
+document.getElementById("buscar").addEventListener("keyup",function(){
+
+let texto=this.value.toLowerCase()
+let filtrados=productos.filter(p=>p.nombre.toLowerCase().includes(texto))
+mostrar(filtrados)
+
+})
+
+// FILTRO
+function filtrar(cat){
+
+if(cat=="todos"){
+mostrar(productos)
+return
+}
+
+let filtrados=productos.filter(p=>p.categoria==cat)
+mostrar(filtrados)
+
+}
+
+// ENVIAR PEDIDO
+function enviarPedido(){
+
+if(carrito.length==0){
+alert("El carrito está vacío")
+return
+}
+
+let nombre=document.getElementById("nombre").value
+let tel=document.getElementById("telefonoCliente").value
+let direccion=document.getElementById("direccion").value
+
+if(nombre=="" || tel=="" || direccion==""){
+alert("Complete los datos")
+return
+}
+
+let mensaje="🛒 PEDIDO YORCH TECH\n\n"
+let total=0
+
+carrito.forEach(p=>{
+mensaje+=p.nombre+" x"+p.cantidad+" - $"+(p.precio*p.cantidad)+"\n"
+total+=p.precio*p.cantidad
+})
+
+mensaje+="\nTotal: $"+total
+
+mensaje+="\n\nCliente: "+nombre
+mensaje+="\nTel: "+tel
+mensaje+="\nDirección: "+direccion
+
+mensaje+="\n\nGracias por su compra 🙌"
+
+let url="https://wa.me/"+telefono+"?text="+encodeURIComponent(mensaje)
+
+window.open(url)
+
+carrito=[]
+actualizarContador()
+mostrarCarrito()
+document.getElementById("carritoPanel").style.display="none"
+
+}
+
+</script>
+
+<a href="https://wa.me/5358103725" class="whatsapp" target="_blank">
+💬
+</a>
+
+</body>
+</html>
