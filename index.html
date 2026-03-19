@@ -35,13 +35,13 @@ header{
     border-radius:20px;
     cursor:pointer;
 }
-.productos{
+.productos, #seccionCarrito{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
     gap:15px;
     padding:15px;
 }
-.producto{
+.producto, .productoCarrito{
     background:white;
     border-radius:10px;
     padding:10px;
@@ -73,61 +73,6 @@ header{
     margin-top:5px;
     text-shadow:2px 2px 5px white;
 }
-.whatsapp{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#25D366;
-    color:white;
-    font-size:28px;
-    width:60px;
-    height:60px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-}
-.whatsapp:hover{
-    transform:scale(1.1);
-    transition:0.2s;
-}
-.carrito-icono{
-    position:fixed;
-    bottom:90px;
-    right:20px;
-    background:black;
-    color:white;
-    padding:10px 15px;
-    border-radius:20px;
-    cursor:pointer;
-}
-.carrito-panel{
-    position:fixed;
-    right:20px;
-    bottom:140px;
-    width:280px;
-    max-height:400px;
-    overflow-y:auto;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-    display:none;
-    z-index:1000;
-}
-.carrito-panel button{
-    width:100%;
-    padding:8px;
-    background:orange;
-    border:none;
-    border-radius:6px;
-    margin-top:10px;
-}
-input{
-    border-radius:6px;
-    border:1px solid #ccc;
-}
 .cantidad-btn{
     padding:2px 6px;
     margin:0 3px;
@@ -144,6 +89,20 @@ input{
     color:white;
     border:none;
     border-radius:4px;
+}
+.verCarritoBtn{
+    display:block;
+    margin:10px auto;
+    padding:10px 15px;
+    background:#ff9800;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+input{
+    border-radius:6px;
+    border:1px solid #ccc;
 }
 </style>
 </head>
@@ -177,72 +136,51 @@ input{
 <input id="ubicacion" placeholder="Ubicación" style="width:80%;padding:8px;margin:5px;"><br>
 </div>
 
+<!-- Botón para ver carrito -->
+<button class="verCarritoBtn" onclick="mostrarSeccionCarrito()">Ver carrito</button>
+
+<!-- SECCIÓN PRINCIPAL DE PRODUCTOS -->
 <div class="productos" id="productos"></div>
 
-<!-- ICONO DEL CARRITO -->
-<div class="carrito-icono" onclick="toggleCarrito()">
-🛒 <span id="contador">0</span>
-</div>
-
-<!-- PANEL DEL CARRITO -->
-<div class="carrito-panel" id="carritoPanel">
-<h3>🛒 Tu carrito</h3>
+<!-- SECCIÓN DEL CARRITO -->
+<div id="seccionCarrito" style="display:none;">
+<h2>🛒 Tu carrito</h2>
 <div id="listaCarrito"></div>
 <p><strong>Total: $<span id="total">0</span></strong></p>
 <button onclick="enviarPedido()">Finalizar pedido</button>
+<button onclick="volverProductos()" style="margin-top:10px;background:#ccc;color:black;">Volver a productos</button>
 </div>
 
 <script>
-// Productos definidos directamente para que cargue inmediatamente
 let productos = [
   { nombre:"Bms 4.2v 1A", precio:200, categoria:"Bms", imagen:"https://i.imgur.com/Wk4F6QH.jpg" },
   { nombre:"Estaño 0.8mm", precio:180, categoria:"inversor", imagen:"https://i.imgur.com/8Km9tLL.jpg" }
 ];
 
-let telefono="5358103725";
 let carrito=[];
-
-function actualizarContador(){
-    document.getElementById("contador").innerText = carrito.length;
-}
-
-function mostrarCarrito(){
-    let lista = document.getElementById("listaCarrito");
-    let totalHTML = document.getElementById("total");
-    lista.innerHTML = "";
-    let total = 0;
-    carrito.forEach((p,index)=>{
-        lista.innerHTML += `
-        <p>${p.nombre} - $${p.precio} x ${p.cantidad} 
-        <button class="cantidad-btn" onclick="modificarCantidad(${index},1)">+</button>
-        <button class="cantidad-btn" onclick="modificarCantidad(${index},-1)">-</button>
-        <button class="eliminar-btn" onclick="eliminarProducto(${index})">❌</button>
-        </p>`;
-        total += p.precio * p.cantidad;
-    });
-    totalHTML.innerText = total;
-}
-
-function toggleCarrito(){
-    let panel=document.getElementById("carritoPanel");
-    panel.style.display = (panel.style.display=="block")?"none":"block";
-}
+let telefono="5358103725";
 
 function mostrar(lista){
     let cont=document.getElementById("productos");
     cont.innerHTML="";
-    lista.forEach(p=>{
+    lista.forEach((p,index)=>{
         cont.innerHTML += `
         <div class="producto">
             <img src="${p.imagen}">
             <h3>${p.nombre}</h3>
             <p class="precio">$${p.precio}</p>
-            <button class="btn" onclick="agregar('${p.nombre}',${p.precio})">Agregar</button>
+            <button class="btn" onclick="agregar(${index})">Agregar</button>
         </div>`;
     });
 }
 
 mostrar(productos);
+
+function filtrar(cat){
+    if(cat=="todos"){ mostrar(productos); return; }
+    let filtrados=productos.filter(p=>p.categoria==cat);
+    mostrar(filtrados);
+}
 
 document.getElementById("buscar").addEventListener("keyup",function(){
     let texto=this.value.toLowerCase();
@@ -250,69 +188,77 @@ document.getElementById("buscar").addEventListener("keyup",function(){
     mostrar(filtrados);
 });
 
-function filtrar(cat){
-    if(cat=="todos"){
-        mostrar(productos);
-        return;
-    }
-    let filtrados=productos.filter(p=>p.categoria==cat);
-    mostrar(filtrados);
+function agregar(index){
+    let cantidad=prompt("¿Cuántas unidades deseas?");
+    if(cantidad==null || cantidad=="" || isNaN(cantidad)){ alert("Cantidad inválida"); return; }
+    cantidad=parseInt(cantidad);
+    let prod=productos[index];
+    carrito.push({nombre:prod.nombre, precio:prod.precio, cantidad:cantidad});
+    alert(prod.nombre+" agregado al carrito");
 }
 
-function agregar(nombre,precio){
-    let cantidad=prompt("¿Cuántas unidades deseas?");
-    if(cantidad==null || cantidad=="" || isNaN(cantidad)){
-        alert("Cantidad inválida");
-        return;
-    }
-    cantidad=parseInt(cantidad);
-    carrito.push({nombre,precio,cantidad});
-    actualizarContador();
-    mostrarCarrito();
-    document.getElementById("carritoPanel").style.display="block";
+function mostrarSeccionCarrito(){
+    document.getElementById("productos").style.display="none";
+    document.getElementById("seccionCarrito").style.display="grid";
+    actualizarCarrito();
+}
+
+function volverProductos(){
+    document.getElementById("productos").style.display="grid";
+    document.getElementById("seccionCarrito").style.display="none";
+}
+
+function actualizarCarrito(){
+    let lista=document.getElementById("listaCarrito");
+    let totalHTML=document.getElementById("total");
+    lista.innerHTML="";
+    let total=0;
+    carrito.forEach((p,index)=>{
+        lista.innerHTML += `<p>${p.nombre} - $${p.precio} x ${p.cantidad} 
+        <button class="cantidad-btn" onclick="modificarCantidad(${index},1)">+</button>
+        <button class="cantidad-btn" onclick="modificarCantidad(${index},-1)">-</button>
+        <button class="eliminar-btn" onclick="eliminarProducto(${index})">❌</button>
+        </p>`;
+        total+=p.precio*p.cantidad;
+    });
+    totalHTML.innerText=total;
 }
 
 function modificarCantidad(index,delta){
     carrito[index].cantidad += delta;
     if(carrito[index].cantidad < 1) carrito[index].cantidad = 1;
-    mostrarCarrito();
-    actualizarContador();
+    actualizarCarrito();
 }
 
 function eliminarProducto(index){
     carrito.splice(index,1);
-    mostrarCarrito();
-    actualizarContador();
+    actualizarCarrito();
 }
 
 function enviarPedido(){
-    if(carrito.length==0){
-        alert("El carrito está vacío");
-        return;
-    }
+    if(carrito.length==0){ alert("El carrito está vacío"); return; }
     let nombre=document.getElementById("nombre").value;
     let tel=document.getElementById("telefonoCliente").value;
     let direccion=document.getElementById("direccion").value;
     let referencia=document.getElementById("referencia").value;
     let ubicacion=document.getElementById("ubicacion").value;
-    if(nombre=="" || tel=="" || direccion==""){
-        alert("Complete los datos del cliente");
-        return;
-    }
+    if(nombre=="" || tel=="" || direccion==""){ alert("Complete los datos del cliente"); return; }
+
     let mensaje="PEDIDO:\n\n";
     let total=0;
     carrito.forEach(p=>{
         mensaje+=p.nombre+" x"+p.cantidad+" - $"+(p.precio*p.cantidad)+"\n";
-        total += p.precio*p.cantidad;
+        total+=p.precio*p.cantidad;
     });
     mensaje+="\nTotal: $"+total+"\n\nDATOS DEL CLIENTE:\n";
     mensaje+="Nombre: "+nombre+"\nTeléfono: "+tel+"\nDirección: "+direccion+"\nReferencia: "+referencia+"\nUbicación: "+ubicacion;
+
     let url="https://wa.me/"+telefono+"?text="+encodeURIComponent(mensaje);
     window.open(url);
+
     carrito=[];
-    actualizarContador();
-    mostrarCarrito();
-    document.getElementById("carritoPanel").style.display="none";
+    actualizarCarrito();
+    volverProductos();
 }
 </script>
 
