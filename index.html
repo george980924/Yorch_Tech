@@ -110,6 +110,29 @@ background:black;
 color:white;
 padding:10px 15px;
 border-radius:20px;
+cursor:pointer;
+}
+
+.carrito-panel{
+position:fixed;
+right:20px;
+bottom:140px;
+width:260px;
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
+display:none;
+z-index:1000;
+}
+
+.carrito-panel button{
+width:100%;
+padding:8px;
+background:orange;
+border:none;
+border-radius:6px;
+margin-top:10px;
 }
 
 input{
@@ -146,12 +169,6 @@ border:1px solid #ccc;
 <button onclick="filtrar('inversor')">Inversor</button>
 </div>
 
-<div style="text-align:center;margin:20px;">
-<button onclick="enviarPedido()" style="padding:10px 20px;background:orange;border:none;border-radius:6px;">
-Enviar pedido por WhatsApp
-</button>
-</div>
-
 <!-- FORMULARIO -->
 <div style="padding:20px;text-align:center;">
 
@@ -167,8 +184,22 @@ Enviar pedido por WhatsApp
 
 <div class="productos" id="productos"></div>
 
-<div class="carrito-icono">
+<!-- ICONO -->
+<div class="carrito-icono" onclick="toggleCarrito()">
 🛒 <span id="contador">0</span>
+</div>
+
+<!-- PANEL -->
+<div class="carrito-panel" id="carritoPanel">
+
+<h3>🛒 Tu carrito</h3>
+
+<div id="listaCarrito"></div>
+
+<p><strong>Total: $<span id="total">0</span></strong></p>
+
+<button onclick="enviarPedido()">Finalizar pedido</button>
+
 </div>
 
 <script src="productos.js"></script>
@@ -180,6 +211,36 @@ let carrito=[]
 
 function actualizarContador(){
 document.getElementById("contador").innerText=carrito.length
+}
+
+function mostrarCarrito(){
+
+let lista=document.getElementById("listaCarrito")
+let totalHTML=document.getElementById("total")
+
+lista.innerHTML=""
+
+let total=0
+
+carrito.forEach(p=>{
+lista.innerHTML+=`<p>${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}</p>`
+total+=p.precio*p.cantidad
+})
+
+totalHTML.innerText=total
+
+}
+
+function toggleCarrito(){
+
+let panel=document.getElementById("carritoPanel")
+
+if(panel.style.display=="none" || panel.style.display==""){
+panel.style.display="block"
+}else{
+panel.style.display="none"
+}
+
 }
 
 function mostrar(lista){
@@ -238,8 +299,9 @@ cantidad=parseInt(cantidad)
 carrito.push({nombre,precio,cantidad})
 
 actualizarContador()
+mostrarCarrito()
 
-alert(nombre+" x"+cantidad+" agregado al carrito")
+document.getElementById("carritoPanel").style.display="block"
 
 }
 
@@ -284,6 +346,9 @@ window.open(url)
 
 carrito=[]
 actualizarContador()
+mostrarCarrito()
+
+document.getElementById("carritoPanel").style.display="none"
 
 }
 
