@@ -124,20 +124,23 @@ border-radius:10px;
 box-shadow:0 0 15px rgba(0,0,0,0.3);
 display:none;
 z-index:1000;
+max-height:300px;
+overflow-y:auto;
 }
 
-.carrito-panel button{
-width:100%;
-padding:8px;
-background:orange;
+.item-carrito{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:8px;
+}
+
+.controles button{
+margin:2px;
+padding:3px 6px;
 border:none;
-border-radius:6px;
-margin-top:10px;
-}
-
-input{
-border-radius:6px;
-border:1px solid #ccc;
+border-radius:4px;
+cursor:pointer;
 }
 
 </style>
@@ -151,10 +154,8 @@ border:1px solid #ccc;
 <img src="banner.png?v=2" style="width:100%; height:200px; object-fit:cover;">
 
 <div style="position:absolute; top:40px; left:50%; transform:translateX(-50%); text-align:center;">
-
 <img src="logo.png?v=2" width="120">
 <h1 class="titulo">YORCH TECH</h1>
-
 </div>
 
 </header>
@@ -171,13 +172,12 @@ border:1px solid #ccc;
 
 <!-- FORMULARIO -->
 <div style="padding:20px;text-align:center;">
-
 <h3>Datos del cliente</h3>
 
 <input id="nombre" placeholder="Nombre" style="width:80%;padding:8px;margin:5px;"><br>
 <input id="telefonoCliente" placeholder="Teléfono" style="width:80%;padding:8px;margin:5px;"><br>
 <input id="direccion" placeholder="Dirección" style="width:80%;padding:8px;margin:5px;"><br>
-<input id="referencia" placeholder="Punto de referencia" style="width:80%;padding:8px;margin:5px;"><br>
+<input id="referencia" placeholder="Referencia" style="width:80%;padding:8px;margin:5px;"><br>
 <input id="ubicacion" placeholder="Ubicación" style="width:80%;padding:8px;margin:5px;"><br>
 
 </div>
@@ -192,7 +192,7 @@ border:1px solid #ccc;
 <!-- PANEL -->
 <div class="carrito-panel" id="carritoPanel">
 
-<h3>🛒 Tu carrito</h3>
+<h3>🛒 Carrito</h3>
 
 <div id="listaCarrito"></div>
 
@@ -209,40 +209,93 @@ border:1px solid #ccc;
 let telefono="5358103725"
 let carrito=[]
 
+// CONTADOR REAL
 function actualizarContador(){
-document.getElementById("contador").innerText=carrito.length
+let total=0
+carrito.forEach(p=> total+=p.cantidad)
+document.getElementById("contador").innerText=total
 }
 
+// MOSTRAR CARRITO
 function mostrarCarrito(){
 
 let lista=document.getElementById("listaCarrito")
 let totalHTML=document.getElementById("total")
 
 lista.innerHTML=""
-
 let total=0
 
-carrito.forEach(p=>{
-lista.innerHTML+=`<p>${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}</p>`
+carrito.forEach((p,i)=>{
+
+lista.innerHTML+=`
+<div class="item-carrito">
+<span>${p.nombre} ($${p.precio})</span>
+
+<div class="controles">
+<button onclick="restar(${i})">➖</button>
+${p.cantidad}
+<button onclick="sumar(${i})">➕</button>
+<button onclick="eliminar(${i})">❌</button>
+</div>
+
+</div>
+`
+
 total+=p.precio*p.cantidad
+
 })
 
 totalHTML.innerText=total
 
 }
 
-function toggleCarrito(){
+// FUNCIONES CARRITO
+function agregar(nombre,precio){
 
-let panel=document.getElementById("carritoPanel")
+let existe=carrito.find(p=>p.nombre===nombre)
 
-if(panel.style.display=="none" || panel.style.display==""){
-panel.style.display="block"
+if(existe){
+existe.cantidad++
 }else{
-panel.style.display="none"
+carrito.push({nombre,precio,cantidad:1})
 }
+
+actualizarContador()
+mostrarCarrito()
+document.getElementById("carritoPanel").style.display="block"
 
 }
 
+function sumar(i){
+carrito[i].cantidad++
+actualizarContador()
+mostrarCarrito()
+}
+
+function restar(i){
+carrito[i].cantidad--
+
+if(carrito[i].cantidad<=0){
+carrito.splice(i,1)
+}
+
+actualizarContador()
+mostrarCarrito()
+}
+
+function eliminar(i){
+carrito.splice(i,1)
+actualizarContador()
+mostrarCarrito()
+}
+
+// TOGGLE
+function toggleCarrito(){
+let panel=document.getElementById("carritoPanel")
+panel.style.display = (panel.style.display=="block") ? "none" : "block"
+}
+
+// MOSTRAR PRODUCTOS
 function mostrar(lista){
 
 let cont=document.getElementById("productos")
@@ -265,6 +318,7 @@ cont.innerHTML+=`
 
 mostrar(productos)
 
+// BUSCADOR
 document.getElementById("buscar").addEventListener("keyup",function(){
 
 let texto=this.value.toLowerCase()
@@ -273,6 +327,7 @@ mostrar(filtrados)
 
 })
 
+// FILTRO
 function filtrar(cat){
 
 if(cat=="todos"){
@@ -285,26 +340,7 @@ mostrar(filtrados)
 
 }
 
-function agregar(nombre,precio){
-
-let cantidad=prompt("¿Cuántas unidades deseas?")
-
-if(cantidad==null || cantidad=="" || isNaN(cantidad)){
-alert("Cantidad inválida")
-return
-}
-
-cantidad=parseInt(cantidad)
-
-carrito.push({nombre,precio,cantidad})
-
-actualizarContador()
-mostrarCarrito()
-
-document.getElementById("carritoPanel").style.display="block"
-
-}
-
+// ENVIAR PEDIDO
 function enviarPedido(){
 
 if(carrito.length==0){
@@ -315,15 +351,13 @@ return
 let nombre=document.getElementById("nombre").value
 let tel=document.getElementById("telefonoCliente").value
 let direccion=document.getElementById("direccion").value
-let referencia=document.getElementById("referencia").value
-let ubicacion=document.getElementById("ubicacion").value
 
 if(nombre=="" || tel=="" || direccion==""){
-alert("Complete los datos del cliente")
+alert("Complete los datos")
 return
 }
 
-let mensaje="PEDIDO:\n\n"
+let mensaje="🛒 PEDIDO YORCH TECH\n\n"
 let total=0
 
 carrito.forEach(p=>{
@@ -333,12 +367,11 @@ total+=p.precio*p.cantidad
 
 mensaje+="\nTotal: $"+total
 
-mensaje+="\n\nDATOS DEL CLIENTE:\n"
-mensaje+="Nombre: "+nombre+"\n"
-mensaje+="Teléfono: "+tel+"\n"
-mensaje+="Dirección: "+direccion+"\n"
-mensaje+="Referencia: "+referencia+"\n"
-mensaje+="Ubicación: "+ubicacion
+mensaje+="\n\nCliente: "+nombre
+mensaje+="\nTel: "+tel
+mensaje+="\nDirección: "+direccion
+
+mensaje+="\n\nGracias por su compra 🙌"
 
 let url="https://wa.me/"+telefono+"?text="+encodeURIComponent(mensaje)
 
@@ -347,7 +380,6 @@ window.open(url)
 carrito=[]
 actualizarContador()
 mostrarCarrito()
-
 document.getElementById("carritoPanel").style.display="none"
 
 }
