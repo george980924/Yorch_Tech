@@ -103,6 +103,9 @@ header{
 input{
     border-radius:6px;
     border:1px solid #ccc;
+    width:90%;
+    margin:3px 0;
+    padding:6px;
 }
 </style>
 </head>
@@ -126,16 +129,6 @@ input{
 <button onclick="filtrar('Bms')">BMS</button>
 </div>
 
-<!-- FORMULARIO -->
-<div style="padding:20px;text-align:center;">
-<h3>Datos del cliente</h3>
-<input id="nombre" placeholder="Nombre" style="width:80%;padding:8px;margin:5px;"><br>
-<input id="telefonoCliente" placeholder="Teléfono" style="width:80%;padding:8px;margin:5px;"><br>
-<input id="direccion" placeholder="Dirección" style="width:80%;padding:8px;margin:5px;"><br>
-<input id="referencia" placeholder="Punto de referencia" style="width:80%;padding:8px;margin:5px;"><br>
-<input id="ubicacion" placeholder="Ubicación" style="width:80%;padding:8px;margin:5px;"><br>
-</div>
-
 <!-- Botón para ver carrito -->
 <button class="verCarritoBtn" onclick="mostrarSeccionCarrito()">Ver carrito</button>
 
@@ -143,8 +136,19 @@ input{
 <div class="productos" id="productos"></div>
 
 <!-- SECCIÓN DEL CARRITO -->
-<div id="seccionCarrito" style="display:none;">
+<div id="seccionCarrito" style="display:none; grid-template-columns: 1fr;">
 <h2>🛒 Tu carrito</h2>
+
+<!-- Datos del cliente dentro del carrito -->
+<div style="text-align:center;margin-bottom:15px;">
+<h3>Datos del cliente</h3>
+<input id="nombre" placeholder="Nombre"><br>
+<input id="telefonoCliente" placeholder="Teléfono"><br>
+<input id="direccion" placeholder="Dirección"><br>
+<input id="referencia" placeholder="Punto de referencia"><br>
+<input id="ubicacion" placeholder="Ubicación"><br>
+</div>
+
 <div id="listaCarrito"></div>
 <p><strong>Total: $<span id="total">0</span></strong></p>
 <button onclick="enviarPedido()">Finalizar pedido</button>
@@ -198,9 +202,11 @@ function agregar(index){
 }
 
 function mostrarSeccionCarrito(){
-    document.getElementById("productos").style.display="none";
+    document.getElementById("productos").style.display="grid";
     document.getElementById("seccionCarrito").style.display="grid";
     actualizarCarrito();
+    // Ocultar sección principal opcional:
+    document.getElementById("productos").style.display="none";
 }
 
 function volverProductos(){
