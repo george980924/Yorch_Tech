@@ -36,11 +36,13 @@ text-align:center;
 }
 
 .categorias button{
-padding:8px;
+padding:10px 15px;
 margin:5px;
 border:none;
-background:#ddd;
-border-radius:6px;
+background:#ff9800;
+color:white;
+border-radius:20px;
+cursor:pointer;
 }
 
 .productos{
@@ -56,6 +58,11 @@ border-radius:10px;
 padding:10px;
 text-align:center;
 box-shadow:0 0 10px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.producto:hover{
+transform:translateY(-5px);
 }
 
 .producto img{
@@ -74,9 +81,9 @@ background:#25D366;
 color:white;
 padding:8px;
 border-radius:6px;
-display:inline-block;
+border:none;
 margin-top:5px;
-text-decoration:none;
+cursor:pointer;
 }
 
 .titulo{
@@ -105,9 +112,17 @@ box-shadow:0 0 10px rgba(0,0,0,0.3);
 z-index:1000;
 }
 
-.whatsapp:hover{
-transform:scale(1.1);
-transition:0.2s;
+.carrito-icono{
+position:fixed;
+bottom:90px;
+right:20px;
+background:black;
+color:white;
+padding:10px 15px;
+border-radius:20px;
+font-size:18px;
+box-shadow:0 0 10px rgba(0,0,0,0.3);
+z-index:1000;
 }
 
 </style>
@@ -135,63 +150,49 @@ transition:0.2s;
 </div>
 
 <div class="categorias">
-
 <button onclick="filtrar('todos')">Todos</button>
 <button onclick="filtrar('aire')">Aire</button>
 <button onclick="filtrar('inversor')">Inversor</button>
+</div>
 
+<div style="text-align:center;margin-bottom:20px;">
+<button onclick="enviarPedido()" style="padding:10px 20px;background:orange;border:none;border-radius:6px;font-size:16px;">
+Enviar pedido por WhatsApp
+</button>
 </div>
 
 <div class="productos" id="productos"></div>
 
-<script src="productos.js"></script>
-
-<div style="text-align:center;margin-bottom:20px;">
-
-<button onclick="enviarPedido()" style="
-padding:10px 20px;
-background:orange;
-border:none;
-border-radius:6px;
-font-size:16px;
-">
-
-Enviar pedido por WhatsApp
-
-</button>
-
+<!-- ICONO CARRITO -->
+<div class="carrito-icono">
+🛒 <span id="contador">0</span>
 </div>
+
+<script src="productos.js"></script>
 
 <script>
 
 let telefono="5358103725"
-
 let carrito=[]
+
+function actualizarContador(){
+document.getElementById("contador").innerText=carrito.length
+}
 
 function mostrar(lista){
 
 let cont=document.getElementById("productos")
-
 cont.innerHTML=""
 
 lista.forEach(p=>{
 
-let link="https://wa.me/"+telefono+"?text=Hola%20vi%20este%20producto%20en%20tu%20pagina%20y%20quiero%20comprar:%20"+p.nombre
-
 cont.innerHTML+=`
-
 <div class="producto">
-
 <img src="${p.imagen}">
-
 <h3>${p.nombre}</h3>
-
 <p class="precio">$${p.precio}</p>
-
 <button class="btn" onclick="agregar('${p.nombre}',${p.precio})">Agregar</button>
-
 </div>
-
 `
 
 })
@@ -203,9 +204,7 @@ mostrar(productos)
 document.getElementById("buscar").addEventListener("keyup",function(){
 
 let texto=this.value.toLowerCase()
-
 let filtrados=productos.filter(p=>p.nombre.toLowerCase().includes(texto))
-
 mostrar(filtrados)
 
 })
@@ -218,7 +217,6 @@ return
 }
 
 let filtrados=productos.filter(p=>p.categoria==cat)
-
 mostrar(filtrados)
 
 }
@@ -226,7 +224,7 @@ mostrar(filtrados)
 function agregar(nombre,precio){
 
 carrito.push({nombre,precio})
-
+actualizarContador()
 alert(nombre+" agregado al carrito")
 
 }
@@ -238,22 +236,23 @@ alert("El carrito está vacío")
 return
 }
 
-let mensaje="Hola quiero comprar:%0A"
+let mensaje="Hola quiero comprar:\n"
 
 let total=0
 
 carrito.forEach(p=>{
-
-mensaje+=p.nombre+" - $"+p.precio+"%0A"
+mensaje+=p.nombre+" - $"+p.precio+"\n"
 total+=p.precio
-
 })
 
-mensaje+="%0ATotal: $"+total
+mensaje+="\nTotal: $"+total
 
-let url="https://wa.me/"+telefono+"?text="+mensaje
+let url="https://wa.me/"+telefono+"?text="+encodeURIComponent(mensaje)
 
 window.open(url)
+
+carrito=[]
+actualizarContador()
 
 }
 
