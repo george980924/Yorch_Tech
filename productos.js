@@ -3,7 +3,7 @@ let productos = JSON.parse(localStorage.getItem("productos")) || [
     nombre: "Bms 4.2v 1A",
     precio: 200,
     categoria: "BMS",
-    imagen: "https://drive.google.com/uc?export=view&id=1neLRbfAxCzo9ggujtnW5WDUqIQRzI8PC",
+    imagen: "https://i.postimg.cc/cCQc9xwN/Add_Text_03_14_06_08_17.png",
     info: "c/u 170 x cant"
   },
   {
