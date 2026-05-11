@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -8,26 +9,43 @@
 
 <style>
 
+/* GENERAL */
+
+*{
+    box-sizing:border-box;
+}
+
 body{
-    font-family:Arial,sans-serif;
     margin:0;
+    font-family:Arial,sans-serif;
     background:#f2f2f2;
     scroll-behavior:smooth;
+}
+
+/* BARRA SUPERIOR */
+
+.topbar{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:8px;
+    font-size:14px;
+    font-weight:bold;
 }
 
 /* HEADER */
 
 header{
-    text-align:center;
     position:relative;
     overflow:hidden;
+    text-align:center;
 }
 
-header img.banner{
+.banner{
     width:100%;
-    height:230px;
+    height:240px;
     object-fit:cover;
-    filter:brightness(0.6);
+    filter:brightness(0.5);
 }
 
 .header-contenido{
@@ -35,7 +53,6 @@ header img.banner{
     top:40px;
     left:50%;
     transform:translateX(-50%);
-    text-align:center;
 }
 
 .logo{
@@ -43,47 +60,48 @@ header img.banner{
 }
 
 .titulo{
-    font-size:48px;
     color:white;
+    font-size:50px;
     font-weight:900;
     letter-spacing:2px;
-    text-shadow:0 4px 10px rgba(0,0,0,0.6);
     margin-top:5px;
+    text-shadow:0 4px 12px rgba(0,0,0,0.7);
 }
 
 /* BUSCADOR */
 
 .buscar{
     text-align:center;
-    padding:25px 15px;
+    padding:20px;
 }
 
 .buscar input{
-    width:80%;
+    width:85%;
     max-width:500px;
-    padding:12px;
-    border:2px solid orange;
-    border-radius:10px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
     outline:none;
     font-size:16px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
 }
 
 /* CATEGORÍAS */
 
 .categorias{
     text-align:center;
-    padding:10px;
+    padding-bottom:15px;
 }
 
 .categorias button{
+    border:none;
     padding:10px 18px;
     margin:5px;
-    border:none;
+    border-radius:30px;
     background:#ff9800;
     color:white;
-    border-radius:20px;
-    cursor:pointer;
     font-weight:bold;
+    cursor:pointer;
     transition:0.3s;
 }
 
@@ -95,31 +113,30 @@ header img.banner{
 
 .productos{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-    gap:15px;
-    padding:15px;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:18px;
+    padding:18px;
 }
 
 .producto{
     background:white;
-    border-radius:18px;
-    padding:10px;
-    text-align:center;
-    box-shadow:0 4px 15px rgba(0,0,0,0.12);
-    transition:0.3s;
+    border-radius:20px;
     overflow:hidden;
+    box-shadow:0 5px 18px rgba(0,0,0,0.12);
+    transition:0.3s;
+    position:relative;
+    animation:fadeIn 0.5s ease;
 }
 
 .producto:hover{
-    transform:translateY(-5px);
-    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 .producto img{
     width:100%;
-    height:170px;
+    height:180px;
     object-fit:cover;
-    border-radius:12px;
     transition:0.3s;
 }
 
@@ -127,8 +144,14 @@ header img.banner{
     transform:scale(1.05);
 }
 
-.producto h3{
-    margin:10px 0 5px;
+.info-producto{
+    padding:12px;
+    text-align:center;
+}
+
+.info-producto h3{
+    margin:8px 0;
+    font-size:18px;
 }
 
 .precio{
@@ -137,16 +160,58 @@ header img.banner{
     margin-bottom:10px;
 }
 
+/* ETIQUETA */
+
+.etiqueta{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:red;
+    color:white;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* CONTROLES CANTIDAD */
+
+.controles{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.controles button{
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:#ff9800;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.cantidad{
+    font-weight:bold;
+    font-size:18px;
+}
+
+/* BOTÓN */
+
 .btn{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
     background:linear-gradient(45deg,#25D366,#1ebe5d);
     color:white;
-    padding:10px;
-    border-radius:10px;
-    border:none;
-    cursor:pointer;
-    margin-top:8px;
-    width:100%;
     font-weight:bold;
+    cursor:pointer;
     transition:0.3s;
 }
 
@@ -160,16 +225,16 @@ header img.banner{
     position:fixed;
     bottom:20px;
     right:20px;
-    background:#25D366;
-    color:white;
-    font-size:28px;
     width:60px;
     height:60px;
+    background:#25D366;
     border-radius:50%;
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     text-decoration:none;
+    color:white;
+    font-size:28px;
     z-index:999;
     transition:0.3s;
 }
@@ -182,69 +247,141 @@ header img.banner{
 
 .carrito-icono{
     position:fixed;
-    bottom:90px;
+    bottom:95px;
     right:20px;
     background:black;
     color:white;
-    padding:10px 15px;
-    border-radius:20px;
+    padding:12px 16px;
+    border-radius:30px;
     cursor:pointer;
     z-index:999;
+    font-weight:bold;
 }
 
 .carrito-panel{
     position:fixed;
     right:20px;
-    bottom:140px;
-    width:300px;
-    max-height:420px;
+    bottom:150px;
+    width:320px;
+    max-height:430px;
     overflow-y:auto;
     background:white;
+    border-radius:18px;
     padding:15px;
-    border-radius:15px;
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
     display:none;
     z-index:1000;
 }
 
-.carrito-panel input{
-    width:100%;
-    padding:8px;
-    margin:4px 0;
-    border:1px solid #ccc;
-    border-radius:6px;
-    box-sizing:border-box;
+.carrito-panel h3{
+    margin-top:0;
 }
 
-.carrito-panel button{
+.carrito-panel input{
     width:100%;
     padding:10px;
-    background:orange;
-    border:none;
+    margin:5px 0;
     border-radius:8px;
-    margin-top:10px;
+    border:1px solid #ccc;
+}
+
+.finalizar{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff9800;
     color:white;
     font-weight:bold;
     cursor:pointer;
+    margin-top:10px;
 }
 
+/* BOTONES CARRITO */
+
 .cantidad-btn{
-    padding:2px 6px;
-    margin:0 3px;
-    cursor:pointer;
     background:#ff9800;
     color:white;
     border:none;
-    border-radius:4px;
+    padding:3px 7px;
+    border-radius:5px;
+    cursor:pointer;
 }
 
 .eliminar-btn{
-    padding:2px 6px;
-    cursor:pointer;
     background:red;
     color:white;
     border:none;
-    border-radius:4px;
+    padding:3px 7px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* NOTIFICACIÓN */
+
+.toast{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:14px 18px;
+    border-radius:10px;
+    font-weight:bold;
+    display:none;
+    z-index:2000;
+    animation:fadeIn 0.3s ease;
+}
+
+/* MODO OSCURO */
+
+.dark{
+    background:#121212;
+    color:white;
+}
+
+.dark .producto{
+    background:#1f1f1f;
+}
+
+.dark .carrito-panel{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark .buscar input{
+    background:#1f1f1f;
+    color:white;
+}
+
+/* BOTÓN DARK */
+
+.dark-btn{
+    position:fixed;
+    left:20px;
+    bottom:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#111;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    z-index:999;
+}
+
+/* ANIMACIÓN */
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 /* RESPONSIVE */
@@ -252,7 +389,7 @@ header img.banner{
 @media(max-width:600px){
 
     .titulo{
-        font-size:35px;
+        font-size:36px;
     }
 
     .productos{
@@ -260,15 +397,22 @@ header img.banner{
     }
 
     .carrito-panel{
-        width:90%;
-        right:5%;
+        width:92%;
+        right:4%;
     }
 
 }
 
 </style>
 </head>
+
 <body>
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+🚚 Envíos disponibles en Holguín
+</div>
 
 <!-- HEADER -->
 
@@ -289,28 +433,42 @@ header img.banner{
 <!-- BUSCADOR -->
 
 <div class="buscar">
-<input id="buscar" placeholder="Buscar producto">
+<input id="buscar" placeholder="Buscar producto...">
 </div>
 
 <!-- CATEGORÍAS -->
 
 <div class="categorias">
-<button onclick="filtrar('todos')">Todos</button>
-<button onclick="filtrar('BMS')">BMS</button>
-<button onclick="filtrar('OTROS')">OTROS</button>
+
+<button onclick="filtrar('todos')">
+Todos
+</button>
+
+<button onclick="filtrar('BMS')">
+BMS
+</button>
+
+<button onclick="filtrar('OTROS')">
+OTROS
+</button>
+
 </div>
 
 <!-- PRODUCTOS -->
 
 <div class="productos" id="productos"></div>
 
-<!-- ICONO DEL CARRITO -->
+<!-- TOAST -->
+
+<div class="toast" id="toast">
+✅ Producto agregado
+</div>
+
+<!-- CARRITO -->
 
 <div class="carrito-icono" onclick="toggleCarrito()">
 🛒 <span id="contador">0</span>
 </div>
-
-<!-- PANEL DEL CARRITO -->
 
 <div class="carrito-panel" id="carritoPanel">
 
@@ -319,7 +477,7 @@ header img.banner{
 <input id="nombre" placeholder="Nombre">
 <input id="telefonoCliente" placeholder="Teléfono">
 <input id="direccion" placeholder="Dirección">
-<input id="referencia" placeholder="Punto de referencia">
+<input id="referencia" placeholder="Referencia">
 <input id="ubicacion" placeholder="Ubicación">
 
 <div id="listaCarrito"></div>
@@ -328,11 +486,27 @@ header img.banner{
 <strong>Total: $<span id="total">0</span></strong>
 </p>
 
-<button onclick="enviarPedido()">
+<button class="finalizar" onclick="enviarPedido()">
 Finalizar pedido
 </button>
 
 </div>
+
+<!-- BOTÓN WHATSAPP -->
+
+<a href="https://wa.me/5358103725"
+class="whatsapp"
+target="_blank">
+
+💬
+
+</a>
+
+<!-- DARK MODE -->
+
+<button class="dark-btn" onclick="toggleDark()">
+🌙
+</button>
 
 <!-- PRODUCTOS -->
 
@@ -344,35 +518,175 @@ let telefono="5358103725";
 
 let carrito=[];
 
-/* CARGAR CARRITO */
+let cantidades={};
+
+/* CARGAR STORAGE */
 
 if(localStorage.getItem("carrito")){
     carrito = JSON.parse(localStorage.getItem("carrito"));
 }
 
-/* ACTUALIZAR CONTADOR */
+if(localStorage.getItem("modo")=="dark"){
+    document.body.classList.add("dark");
+}
+
+/* MOSTRAR PRODUCTOS */
+
+function mostrar(lista){
+
+    let cont=document.getElementById("productos");
+
+    cont.innerHTML="";
+
+    lista.forEach((p,index)=>{
+
+        if(!cantidades[p.nombre]){
+            cantidades[p.nombre]=1;
+        }
+
+        cont.innerHTML += `
+
+        <div class="producto">
+
+            <div class="etiqueta">
+            OFERTA
+            </div>
+
+            <img src="${p.imagen}">
+
+            <div class="info-producto">
+
+                <h3>${p.nombre}</h3>
+
+                <p class="precio">
+                $${p.precio}
+                </p>
+
+                <small>${p.info}</small>
+
+                <div class="controles">
+
+                    <button onclick="cambiarCantidad('${p.nombre}',-1)">
+                    -
+                    </button>
+
+                    <div class="cantidad"
+                    id="cant-${p.nombre}">
+                    ${cantidades[p.nombre]}
+                    </div>
+
+                    <button onclick="cambiarCantidad('${p.nombre}',1)">
+                    +
+                    </button>
+
+                </div>
+
+                <button class="btn"
+                onclick="agregar('${p.nombre}',${p.precio})">
+
+                Agregar al carrito
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+/* CAMBIAR CANTIDAD */
+
+function cambiarCantidad(nombre,delta){
+
+    cantidades[nombre]+=delta;
+
+    if(cantidades[nombre]<1){
+        cantidades[nombre]=1;
+    }
+
+    document.getElementById(
+    "cant-"+nombre
+    ).innerText = cantidades[nombre];
+
+}
+
+/* AGREGAR */
+
+function agregar(nombre,precio){
+
+    let cantidad=cantidades[nombre];
+
+    carrito.push({
+        nombre,
+        precio,
+        cantidad
+    });
+
+    localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+    );
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+    toast();
+
+}
+
+/* TOAST */
+
+function toast(){
+
+    let t=document.getElementById("toast");
+
+    t.style.display="block";
+
+    setTimeout(()=>{
+        t.style.display="none";
+    },2000);
+
+}
+
+/* CONTADOR */
 
 function actualizarContador(){
-    document.getElementById("contador").innerText = carrito.length;
+
+    document.getElementById("contador")
+    .innerText = carrito.length;
+
 }
 
 /* MOSTRAR CARRITO */
 
 function mostrarCarrito(){
 
-    let lista = document.getElementById("listaCarrito");
+    let lista=
+    document.getElementById("listaCarrito");
 
-    let totalHTML = document.getElementById("total");
+    let totalHTML=
+    document.getElementById("total");
 
-    lista.innerHTML = "";
+    lista.innerHTML="";
 
-    let total = 0;
+    let total=0;
 
     carrito.forEach((p,index)=>{
 
         lista.innerHTML += `
+
         <p>
-        ${p.nombre} - $${p.precio} x ${p.cantidad}
+
+        ${p.nombre}
+
+        x${p.cantidad}
+
+        - $${p.precio*p.cantidad}
 
         <button class="cantidad-btn"
         onclick="modificarCantidad(${index},1)">
@@ -389,23 +703,57 @@ function mostrarCarrito(){
         ❌
         </button>
 
-        </p>`;
+        </p>
 
-        total += p.precio * p.cantidad;
+        `;
+
+        total += p.precio*p.cantidad;
 
     });
 
-    totalHTML.innerText = total;
+    totalHTML.innerText=total;
 
-    localStorage.setItem("carrito",JSON.stringify(carrito));
+    localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+    );
 
 }
 
-/* TOGGLE CARRITO */
+/* MODIFICAR */
+
+function modificarCantidad(index,delta){
+
+    carrito[index].cantidad += delta;
+
+    if(carrito[index].cantidad<1){
+        carrito[index].cantidad=1;
+    }
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+/* ELIMINAR */
+
+function eliminarProducto(index){
+
+    carrito.splice(index,1);
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+}
+
+/* TOGGLE */
 
 function toggleCarrito(){
 
-    let panel=document.getElementById("carritoPanel");
+    let panel=
+    document.getElementById("carritoPanel");
 
     panel.style.display =
     (panel.style.display=="block")
@@ -414,54 +762,17 @@ function toggleCarrito(){
 
 }
 
-/* MOSTRAR PRODUCTOS */
-
-function mostrar(lista){
-
-    let cont=document.getElementById("productos");
-
-    cont.innerHTML="";
-
-    lista.forEach(p=>{
-
-        cont.innerHTML += `
-
-        <div class="producto">
-
-            <img src="${p.imagen}">
-
-            <h3>${p.nombre}</h3>
-
-            <p class="precio">
-            $${p.precio} - ${p.info}
-            </p>
-
-            <button class="btn"
-            onclick="agregar('${p.nombre}',${p.precio})">
-            Agregar
-            </button>
-
-        </div>`;
-
-    });
-
-}
-
-mostrar(productos);
-
-actualizarContador();
-
-mostrarCarrito();
-
 /* BUSCADOR */
 
 document.getElementById("buscar")
 .addEventListener("keyup",function(){
 
-    let texto=this.value.toLowerCase();
+    let texto=
+    this.value.toLowerCase();
 
-    let filtrados=productos.filter(p=>
-        p.nombre.toLowerCase().includes(texto)
+    let filtrados=
+    productos.filter(p=>
+    p.nombre.toLowerCase().includes(texto)
     );
 
     mostrar(filtrados);
@@ -477,76 +788,30 @@ function filtrar(cat){
         return;
     }
 
-    let filtrados=productos.filter(
-        p=>p.categoria==cat
+    let filtrados=
+    productos.filter(
+    p=>p.categoria==cat
     );
 
     mostrar(filtrados);
 
 }
 
-/* AGREGAR PRODUCTO */
+/* DARK MODE */
 
-function agregar(nombre,precio){
+function toggleDark(){
 
-    let cantidad=prompt("¿Cuántas unidades deseas?");
+    document.body.classList.toggle("dark");
 
-    if(cantidad==null || cantidad=="" || isNaN(cantidad)){
-
-        alert("Cantidad inválida");
-
-        return;
-
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("modo","dark");
+    }else{
+        localStorage.setItem("modo","light");
     }
 
-    cantidad=parseInt(cantidad);
-
-    carrito.push({
-        nombre,
-        precio,
-        cantidad
-    });
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-    document.getElementById("carritoPanel")
-    .style.display="block";
-
 }
 
-/* MODIFICAR CANTIDAD */
-
-function modificarCantidad(index,delta){
-
-    carrito[index].cantidad += delta;
-
-    if(carrito[index].cantidad < 1){
-
-        carrito[index].cantidad = 1;
-
-    }
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-}
-
-/* ELIMINAR PRODUCTO */
-
-function eliminarProducto(index){
-
-    carrito.splice(index,1);
-
-    actualizarContador();
-
-    mostrarCarrito();
-
-}
-
-/* ENVIAR PEDIDO */
+/* ENVIAR */
 
 function enviarPedido(){
 
@@ -558,24 +823,24 @@ function enviarPedido(){
 
     }
 
-    let nombre =
+    let nombre=
     document.getElementById("nombre").value;
 
-    let tel =
+    let tel=
     document.getElementById("telefonoCliente").value;
 
-    let direccion =
+    let direccion=
     document.getElementById("direccion").value;
 
-    let referencia =
+    let referencia=
     document.getElementById("referencia").value;
 
-    let ubicacion =
+    let ubicacion=
     document.getElementById("ubicacion").value;
 
     if(nombre=="" || tel=="" || direccion==""){
 
-        alert("Complete los datos del cliente");
+        alert("Complete los datos");
 
         return;
 
@@ -599,7 +864,7 @@ function enviarPedido(){
 
     mensaje +=
     "%0ATotal: $"+total+
-    "%0A%0ADATOS DEL CLIENTE:%0A";
+    "%0A%0A";
 
     mensaje +=
     "Nombre: "+nombre+"%0A"+
@@ -628,21 +893,15 @@ function enviarPedido(){
 
 }
 
-/* MOSTRAR DATOS */
+/* INICIO */
+
+mostrar(productos);
+
+actualizarContador();
 
 mostrarCarrito();
 
 </script>
-
-<!-- BOTÓN WHATSAPP -->
-
-<a href="https://wa.me/5358103725"
-class="whatsapp"
-target="_blank">
-
-💬
-
-</a>
 
 </body>
 </html>
