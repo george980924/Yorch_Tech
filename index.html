@@ -5,345 +5,173 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YORCH TECH PRO</title>
+<title>YORCH TECH</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
 body{
-font-family:Arial;
-background:#f2f2f2;
+    margin:0;
+    font-family:Arial;
+    background:#f2f2f2;
 }
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 header{
-background:#111;
-color:white;
-padding:15px;
-text-align:center;
-position:sticky;
-top:0;
-z-index:1000;
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:20px;
+    font-weight:bold;
 }
 
-header h1{
-font-size:28px;
-}
-
-/* ================= BOTONES ================= */
+/* BOTÓN ADMIN */
 
 .admin-btn{
-position:fixed;
-top:20px;
-left:20px;
-width:55px;
-height:55px;
-border:none;
-border-radius:50%;
-background:#ff9800;
-color:white;
-font-size:22px;
-cursor:pointer;
-z-index:9999;
+    position:fixed;
+    top:15px;
+    right:15px;
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    border:none;
+    background:#ff9800;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    z-index:999;
 }
 
-.dark-btn{
-position:fixed;
-top:90px;
-left:20px;
-width:55px;
-height:55px;
-border:none;
-border-radius:50%;
-background:#222;
-color:white;
-font-size:22px;
-cursor:pointer;
-z-index:9999;
-}
-
-/* ================= BUSCADOR ================= */
+/* BUSCADOR */
 
 .buscar{
-padding:15px;
-text-align:center;
+    text-align:center;
+    padding:15px;
 }
 
 .buscar input{
-width:90%;
-max-width:500px;
-padding:12px;
-border:none;
-border-radius:10px;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    width:90%;
+    max-width:500px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
 }
 
-/* ================= PRODUCTOS ================= */
+/* PRODUCTOS */
 
 .productos{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-gap:15px;
-padding:15px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+    gap:15px;
+    padding:15px;
 }
 
 .producto{
-background:white;
-border-radius:15px;
-overflow:hidden;
-box-shadow:0 3px 10px rgba(0,0,0,0.12);
-transition:0.3s;
-position:relative;
-}
-
-.producto:hover{
-transform:translateY(-5px);
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+    position:relative;
 }
 
 .producto img{
-width:100%;
-height:170px;
-object-fit:cover;
+    width:100%;
+    height:150px;
+    object-fit:cover;
 }
 
 .info{
-padding:10px;
-text-align:center;
-}
-
-.info h3{
-font-size:16px;
-margin-bottom:5px;
+    padding:10px;
+    text-align:center;
 }
 
 .precio{
-color:green;
-font-weight:bold;
-font-size:18px;
+    color:green;
+    font-weight:bold;
 }
 
-.mayor{
-color:#ff9800;
-font-size:13px;
-margin-top:4px;
-font-weight:bold;
-}
+/* BOTÓN */
 
 .btn{
-width:100%;
-padding:10px;
-border:none;
-background:#25D366;
-color:white;
-cursor:pointer;
-margin-top:8px;
-font-weight:bold;
+    width:100%;
+    padding:10px;
+    border:none;
+    background:#25D366;
+    color:white;
+    cursor:pointer;
 }
 
-/* ================= FAVORITOS ================= */
+/* FAVORITOS */
 
-.favorito{
-position:absolute;
-top:10px;
-right:10px;
-background:white;
-width:35px;
-height:35px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-cursor:pointer;
-font-size:18px;
+.fav{
+    position:absolute;
+    top:10px;
+    right:10px;
+    background:white;
+    border-radius:50%;
+    width:30px;
+    height:30px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
 }
 
-/* ================= CARRITO ================= */
+/* CARRITO */
 
 .carrito-btn{
-position:fixed;
-bottom:20px;
-right:20px;
-background:black;
-color:white;
-padding:12px 18px;
-border-radius:30px;
-cursor:pointer;
-z-index:999;
-font-weight:bold;
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:black;
+    color:white;
+    padding:10px 15px;
+    border-radius:20px;
+    cursor:pointer;
 }
 
-.carrito-panel{
-position:fixed;
-right:20px;
-bottom:80px;
-width:320px;
-max-height:450px;
-overflow:auto;
-background:white;
-border-radius:15px;
-padding:15px;
-display:none;
-box-shadow:0 0 15px rgba(0,0,0,0.3);
-z-index:999;
+.panel-carrito{
+    position:fixed;
+    bottom:80px;
+    right:20px;
+    width:280px;
+    background:white;
+    padding:10px;
+    display:none;
+    border-radius:10px;
 }
 
-.carrito-panel input{
-width:100%;
-padding:10px;
-margin:5px 0;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.finalizar{
-width:100%;
-padding:12px;
-border:none;
-background:#ff9800;
-color:white;
-cursor:pointer;
-margin-top:10px;
-font-weight:bold;
-border-radius:8px;
-}
-
-/* ================= ADMIN PANEL ================= */
+/* ADMIN PANEL */
 
 .admin-panel{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.7);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:10000;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    justify-content:center;
+    align-items:center;
 }
 
 .admin-box{
-background:white;
-width:340px;
-padding:20px;
-border-radius:15px;
-max-height:90vh;
-overflow:auto;
-}
-
-.admin-box h3{
-margin-bottom:10px;
+    background:white;
+    padding:20px;
+    width:320px;
+    border-radius:15px;
 }
 
 .admin-box input{
-width:100%;
-padding:10px;
-margin:5px 0;
-border-radius:8px;
-border:1px solid #ccc;
+    width:100%;
+    padding:10px;
+    margin:5px 0;
 }
 
 .admin-box button{
-width:100%;
-padding:10px;
-margin-top:5px;
-border:none;
-cursor:pointer;
-border-radius:8px;
-}
-
-/* ================= LISTA ADMIN ================= */
-
-.lista-admin{
-margin-top:15px;
-max-height:250px;
-overflow:auto;
-}
-
-.item-admin{
-background:#f2f2f2;
-padding:10px;
-border-radius:10px;
-margin-bottom:8px;
-}
-
-.item-admin button{
-margin-top:5px;
-}
-
-.delete-btn{
-background:red;
-color:white;
-}
-
-.edit-btn{
-background:#25D366;
-color:white;
-}
-
-/* ================= LOGIN ================= */
-
-.login-panel{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.7);
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:20000;
-}
-
-.login-box{
-background:white;
-padding:20px;
-border-radius:15px;
-width:300px;
-}
-
-.login-box input{
-width:100%;
-padding:10px;
-margin:10px 0;
-}
-
-/* ================= DARK ================= */
-
-.dark{
-background:#121212;
-color:white;
-}
-
-.dark .producto,
-.dark .carrito-panel,
-.dark .admin-box,
-.dark .login-box,
-.dark .item-admin{
-background:#1f1f1f;
-color:white;
-}
-
-.dark input{
-background:#333;
-color:white;
-border:none;
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media(max-width:600px){
-
-.productos{
-grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-}
-
-.carrito-panel{
-width:92%;
-right:4%;
-}
-
+    width:100%;
+    padding:10px;
+    border:none;
+    margin-top:5px;
+    cursor:pointer;
 }
 
 </style>
@@ -352,141 +180,56 @@ right:4%;
 
 <body>
 
-<!-- LOGIN -->
-
-<div class="login-panel" id="login">
-
-<div class="login-box">
-
-<h3>🔒 Acceso Admin</h3>
-
-<input type="password"
-id="clave"
-placeholder="Contraseña">
-
-<button onclick="login()">
-Entrar
-</button>
-
-</div>
-
-</div>
-
-<!-- HEADER -->
-
 <header>
-
-<h1>YORCH TECH PRO</h1>
-
+YORCH TECH
 </header>
 
-<!-- BOTONES -->
+<!-- BOTÓN ADMIN -->
 
-<button class="admin-btn"
-onclick="abrirAdmin()">
+<button class="admin-btn" onclick="abrirAdmin()">
 ⚙
-</button>
-
-<button class="dark-btn"
-onclick="toggleDark()">
-🌙
 </button>
 
 <!-- BUSCADOR -->
 
 <div class="buscar">
-
-<input id="buscar"
-placeholder="Buscar productos...">
-
+<input id="buscar" placeholder="Buscar productos...">
 </div>
 
 <!-- PRODUCTOS -->
 
-<div class="productos"
-id="productos"></div>
+<div class="productos" id="productos"></div>
 
 <!-- CARRITO -->
 
-<div class="carrito-btn"
-onclick="toggleCarrito()">
-
+<div class="carrito-btn" onclick="toggleCarrito()">
 🛒 <span id="contador">0</span>
-
 </div>
 
-<div class="carrito-panel"
-id="carritoPanel">
+<div class="panel-carrito" id="carritoPanel"></div>
 
-<h3>Tu carrito</h3>
+<!-- ADMIN PANEL -->
 
-<input id="nombre"
-placeholder="Nombre">
-
-<input id="telefono"
-placeholder="Teléfono">
-
-<input id="direccion"
-placeholder="Dirección">
-
-<div id="listaCarrito"></div>
-
-<p>
-<b>Total: $<span id="total">0</span></b>
-</p>
-
-<button class="finalizar"
-onclick="enviarPedido()">
-
-Enviar pedido
-
-</button>
-
-</div>
-
-<!-- PANEL ADMIN -->
-
-<div class="admin-panel"
-id="adminPanel">
+<div class="admin-panel" id="adminPanel">
 
 <div class="admin-box">
 
-<h3>⚙ Panel Administrador</h3>
+<h3>Panel Admin</h3>
 
-<input id="pNombre"
-placeholder="Nombre producto">
+<input id="nombre" placeholder="Nombre">
+<input id="precio" placeholder="Precio normal">
+<input id="precioMayor" placeholder="Precio mayorista">
+<input id="minMayor" placeholder="Cantidad mínima mayorista">
+<input id="img" placeholder="Imagen URL">
+<input id="cat" placeholder="Categoría">
 
-<input id="pPrecio"
-placeholder="Precio normal">
-
-<input id="pMayor"
-placeholder="Precio por mayor">
-
-<input id="pCantidadMayor"
-placeholder="Cantidad mínima mayorista">
-
-<input id="pImagen"
-placeholder="URL imagen">
-
-<input id="pCategoria"
-placeholder="Categoría">
-
-<button onclick="agregarProducto()"
-style="background:#25D366;color:white;">
-
-Agregar producto
-
+<button onclick="agregarProducto()" style="background:#25D366;color:white;">
+Agregar
 </button>
 
-<button onclick="cerrarAdmin()"
-style="background:#ff9800;color:white;">
-
+<button onclick="cerrarAdmin()" style="background:red;color:white;">
 Cerrar
-
 </button>
-
-<div class="lista-admin"
-id="listaAdmin"></div>
 
 </div>
 
@@ -496,83 +239,38 @@ id="listaAdmin"></div>
 
 /* ================= DATOS ================= */
 
-let productos =
-JSON.parse(localStorage.getItem("productos")) || [];
-
-let carrito =
-JSON.parse(localStorage.getItem("carrito")) || [];
-
-let favoritos =
-JSON.parse(localStorage.getItem("favoritos")) || [];
-
-/* ================= LOGIN ================= */
-
-function login(){
-
-let clave =
-document.getElementById("clave").value;
-
-if(clave=="1234"){
-
-document.getElementById("login")
-.style.display="none";
-
-}else{
-
-alert("Clave incorrecta");
-
-}
-
-}
+let productos = JSON.parse(localStorage.getItem("productos")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
 /* ================= MOSTRAR ================= */
 
-function mostrar(lista){
+function mostrar(){
 
-let cont =
-document.getElementById("productos");
+let cont = document.getElementById("productos");
 
-cont.innerHTML="";
+cont.innerHTML = "";
 
-lista.forEach((p,index)=>{
+productos.forEach((p,i)=>{
 
-let fav =
-favoritos.includes(p.nombre)
-? "❤️"
-: "🤍";
+let f = favoritos.includes(p.nombre) ? "❤️" : "🤍";
 
 cont.innerHTML += `
 
 <div class="producto">
 
-<div class="favorito"
-onclick="toggleFavorito('${p.nombre}')">
+<div class="fav" onclick="fav('${p.nombre}')">${f}</div>
 
-${fav}
-
-</div>
-
-<img src="${p.imagen}">
+<img src="${p.img}">
 
 <div class="info">
 
-<h3>${p.nombre}</h3>
+<h4>${p.nombre}</h4>
 
-<p class="precio">
-$${p.precio}
-</p>
+<p class="precio">$${p.precio}</p>
 
-<p class="mayor">
-🔥 Mayor:
-$${p.precioMayor}
-desde ${p.cantidadMayor} unidades
-</p>
-
-<button class="btn"
-onclick="agregarCarrito(${index})">
-
+<button class="btn" onclick="agregar(${i})">
 Agregar
-
 </button>
 
 </div>
@@ -585,27 +283,21 @@ Agregar
 
 }
 
+mostrar();
+
 /* ================= FAVORITOS ================= */
 
-function toggleFavorito(nombre){
+function fav(nombre){
 
 if(favoritos.includes(nombre)){
-
-favoritos =
-favoritos.filter(f=>f!=nombre);
-
+favoritos = favoritos.filter(f=>f!=nombre);
 }else{
-
 favoritos.push(nombre);
-
 }
 
-localStorage.setItem(
-"favoritos",
-JSON.stringify(favoritos)
-);
+localStorage.setItem("favoritos",JSON.stringify(favoritos));
 
-mostrar(productos);
+mostrar();
 
 }
 
@@ -613,218 +305,101 @@ mostrar(productos);
 
 function abrirAdmin(){
 
-document.getElementById("adminPanel")
-.style.display="flex";
+let pass = prompt("Contraseña admin:");
 
-mostrarListaAdmin();
+if(pass=="1234"){
+
+document.getElementById("adminPanel").style.display="flex";
+
+}else{
+
+alert("Incorrecto");
+
+}
 
 }
 
 function cerrarAdmin(){
-
-document.getElementById("adminPanel")
-.style.display="none";
-
+document.getElementById("adminPanel").style.display="none";
 }
 
 function agregarProducto(){
 
 let p = {
-
-nombre:
-document.getElementById("pNombre").value,
-
-precio:
-parseFloat(
-document.getElementById("pPrecio").value
-),
-
-precioMayor:
-parseFloat(
-document.getElementById("pMayor").value
-),
-
-cantidadMayor:
-parseInt(
-document.getElementById("pCantidadMayor").value
-),
-
-imagen:
-document.getElementById("pImagen").value,
-
-categoria:
-document.getElementById("pCategoria").value
-
+nombre:document.getElementById("nombre").value,
+precio:parseFloat(document.getElementById("precio").value),
+precioMayor:parseFloat(document.getElementById("precioMayor").value),
+minMayor:parseInt(document.getElementById("minMayor").value),
+img:document.getElementById("img").value,
+cat:document.getElementById("cat").value
 };
 
 productos.push(p);
 
-guardarProductos();
+localStorage.setItem("productos",JSON.stringify(productos));
 
-mostrar(productos);
+mostrar();
 
-mostrarListaAdmin();
-
-}
-
-/* ================= GUARDAR ================= */
-
-function guardarProductos(){
-
-localStorage.setItem(
-"productos",
-JSON.stringify(productos)
-);
-
-}
-
-/* ================= LISTA ADMIN ================= */
-
-function mostrarListaAdmin(){
-
-let lista =
-document.getElementById("listaAdmin");
-
-lista.innerHTML="";
-
-productos.forEach((p,index)=>{
-
-lista.innerHTML += `
-
-<div class="item-admin">
-
-<b>${p.nombre}</b>
-
-<p>
-$${p.precio}
-</p>
-
-<button class="delete-btn"
-onclick="eliminarProducto(${index})">
-
-Eliminar
-
-</button>
-
-</div>
-
-`;
-
-});
-
-}
-
-/* ================= ELIMINAR ================= */
-
-function eliminarProducto(index){
-
-if(confirm("Eliminar producto?")){
-
-productos.splice(index,1);
-
-guardarProductos();
-
-mostrar(productos);
-
-mostrarListaAdmin();
-
-}
+cerrarAdmin();
 
 }
 
 /* ================= CARRITO ================= */
 
-function agregarCarrito(index){
+function agregar(i){
 
-let p = productos[index];
+let p = productos[i];
 
-let existe =
-carrito.find(x=>x.nombre==p.nombre);
+let e = carrito.find(x=>x.nombre==p.nombre);
 
-if(existe){
-
-existe.cantidad++;
-
+if(e){
+e.cantidad++;
 }else{
-
 carrito.push({
 nombre:p.nombre,
 precio:p.precio,
 precioMayor:p.precioMayor,
-cantidadMayor:p.cantidadMayor,
+minMayor:p.minMayor,
 cantidad:1
 });
-
 }
 
-guardarCarrito();
-
-}
-
-/* ================= GUARDAR CARRITO ================= */
-
-function guardarCarrito(){
-
-localStorage.setItem(
-"carrito",
-JSON.stringify(carrito)
-);
+localStorage.setItem("carrito",JSON.stringify(carrito));
 
 actualizarCarrito();
 
 }
 
-/* ================= ACTUALIZAR ================= */
+/* ================= CARRITO ================= */
 
 function actualizarCarrito(){
 
-let lista =
-document.getElementById("listaCarrito");
+let panel = document.getElementById("carritoPanel");
 
-lista.innerHTML="";
+panel.innerHTML = "";
 
-let total=0;
+let total = 0;
 
-carrito.forEach((p,index)=>{
+carrito.forEach(p=>{
 
-let precioFinal =
-p.cantidad >= p.cantidadMayor
-? p.precioMayor
-: p.precio;
+let precio = p.cantidad>=p.minMayor ? p.precioMayor : p.precio;
 
-let subtotal =
-precioFinal * p.cantidad;
+total += precio * p.cantidad;
 
-total += subtotal;
-
-lista.innerHTML += `
+panel.innerHTML += `
 
 <p>
-
-${p.nombre}
-
-x${p.cantidad}
-
-<br>
-
-💲 ${precioFinal}
-c/u
-
-<br>
-
-= $${subtotal}
-
+${p.nombre} x${p.cantidad}
+= $${precio * p.cantidad}
 </p>
 
 `;
 
 });
 
-document.getElementById("total")
-.innerText=total;
+document.getElementById("contador").innerText = carrito.length;
 
-document.getElementById("contador")
-.innerText=carrito.length;
+panel.innerHTML += "<hr>Total: $"+total;
 
 }
 
@@ -832,107 +407,34 @@ document.getElementById("contador")
 
 function toggleCarrito(){
 
-let p =
-document.getElementById("carritoPanel");
+let p = document.getElementById("carritoPanel");
 
-p.style.display =
-p.style.display=="block"
-? "none"
-: "block";
+p.style.display = p.style.display=="block"?"none":"block";
 
 }
 
 /* ================= BUSCADOR ================= */
 
-document.getElementById("buscar")
-.addEventListener("input",e=>{
+document.getElementById("buscar").addEventListener("input",e=>{
 
-let t =
-e.target.value.toLowerCase();
+let t = e.target.value.toLowerCase();
 
-let filtrados =
-productos.filter(p=>
-p.nombre.toLowerCase().includes(t)
-);
+let f = productos.filter(p=>p.nombre.toLowerCase().includes(t));
 
-mostrar(filtrados);
+document.getElementById("productos").innerHTML="";
 
-});
+f.forEach((p,i)=>{
 
-/* ================= DARK ================= */
-
-function toggleDark(){
-
-document.body.classList.toggle("dark");
-
-}
-
-/* ================= ENVIAR ================= */
-
-function enviarPedido(){
-
-if(carrito.length==0){
-
-alert("Carrito vacío");
-
-return;
-
-}
-
-let nombre =
-document.getElementById("nombre").value;
-
-let telefono =
-document.getElementById("telefono").value;
-
-let direccion =
-document.getElementById("direccion").value;
-
-let msg =
-"🛒 PEDIDO:%0A%0A";
-
-let total=0;
-
-carrito.forEach(p=>{
-
-let precioFinal =
-p.cantidad >= p.cantidadMayor
-? p.precioMayor
-: p.precio;
-
-let subtotal =
-precioFinal * p.cantidad;
-
-msg +=
-`${p.nombre} x${p.cantidad} - $${subtotal}%0A`;
-
-total += subtotal;
+document.getElementById("productos").innerHTML += `
+<div class="producto">
+<img src="${p.img}">
+<h4>${p.nombre}</h4>
+<p>$${p.precio}</p>
+</div>`;
 
 });
 
-msg +=
-`%0ATotal: $${total}%0A%0A`;
-
-msg +=
-`Nombre: ${nombre}%0A`;
-
-msg +=
-`Teléfono: ${telefono}%0A`;
-
-msg +=
-`Dirección: ${direccion}`;
-
-window.open(
-"https://wa.me/5358103725?text="+msg
-);
-
-}
-
-/* ================= INICIO ================= */
-
-mostrar(productos);
-
-actualizarCarrito();
+});
 
 </script>
 
