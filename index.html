@@ -15,18 +15,15 @@ body{
     background:#f2f2f2;
 }
 
-/* HEADER */
-
 header{
     background:#111;
     color:white;
     text-align:center;
     padding:15px;
-    font-size:20px;
     font-weight:bold;
 }
 
-/* BOTÓN ADMIN */
+/* ADMIN */
 
 .admin-btn{
     position:fixed;
@@ -54,8 +51,8 @@ header{
     width:90%;
     max-width:500px;
     padding:12px;
-    border:none;
     border-radius:10px;
+    border:none;
 }
 
 /* PRODUCTOS */
@@ -91,6 +88,11 @@ header{
     font-weight:bold;
 }
 
+.mayor{
+    font-size:12px;
+    color:#ff9800;
+}
+
 /* BOTÓN */
 
 .btn{
@@ -109,9 +111,9 @@ header{
     top:10px;
     right:10px;
     background:white;
-    border-radius:50%;
     width:30px;
     height:30px;
+    border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -142,8 +144,6 @@ header{
     border-radius:10px;
 }
 
-/* ADMIN PANEL */
-
 .admin-panel{
     position:fixed;
     inset:0;
@@ -166,14 +166,6 @@ header{
     margin:5px 0;
 }
 
-.admin-box button{
-    width:100%;
-    padding:10px;
-    border:none;
-    margin-top:5px;
-    cursor:pointer;
-}
-
 </style>
 
 </head>
@@ -184,23 +176,15 @@ header{
 YORCH TECH
 </header>
 
-<!-- BOTÓN ADMIN -->
-
 <button class="admin-btn" onclick="abrirAdmin()">
 ⚙
 </button>
-
-<!-- BUSCADOR -->
 
 <div class="buscar">
 <input id="buscar" placeholder="Buscar productos...">
 </div>
 
-<!-- PRODUCTOS -->
-
 <div class="productos" id="productos"></div>
-
-<!-- CARRITO -->
 
 <div class="carrito-btn" onclick="toggleCarrito()">
 🛒 <span id="contador">0</span>
@@ -208,7 +192,7 @@ YORCH TECH
 
 <div class="panel-carrito" id="carritoPanel"></div>
 
-<!-- ADMIN PANEL -->
+<!-- ADMIN -->
 
 <div class="admin-panel" id="adminPanel">
 
@@ -219,7 +203,7 @@ YORCH TECH
 <input id="nombre" placeholder="Nombre">
 <input id="precio" placeholder="Precio normal">
 <input id="precioMayor" placeholder="Precio mayorista">
-<input id="minMayor" placeholder="Cantidad mínima mayorista">
+<input id="minMayor" placeholder="Cantidad mínima">
 <input id="img" placeholder="Imagen URL">
 <input id="cat" placeholder="Categoría">
 
@@ -245,13 +229,13 @@ let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
 /* ================= MOSTRAR ================= */
 
-function mostrar(){
+function mostrar(lista = productos){
 
 let cont = document.getElementById("productos");
 
 cont.innerHTML = "";
 
-productos.forEach((p,i)=>{
+lista.forEach((p,i)=>{
 
 let f = favoritos.includes(p.nombre) ? "❤️" : "🤍";
 
@@ -268,6 +252,10 @@ cont.innerHTML += `
 <h4>${p.nombre}</h4>
 
 <p class="precio">$${p.precio}</p>
+
+<p class="mayor">
+Mayor: $${p.precioMayor} desde ${p.minMayor}
+</p>
 
 <button class="btn" onclick="agregar(${i})">
 Agregar
@@ -308,13 +296,9 @@ function abrirAdmin(){
 let pass = prompt("Contraseña admin:");
 
 if(pass=="1234"){
-
 document.getElementById("adminPanel").style.display="flex";
-
 }else{
-
 alert("Incorrecto");
-
 }
 
 }
@@ -370,7 +354,7 @@ actualizarCarrito();
 
 }
 
-/* ================= CARRITO ================= */
+/* ================= ACTUALIZAR ================= */
 
 function actualizarCarrito(){
 
@@ -387,52 +371,38 @@ let precio = p.cantidad>=p.minMayor ? p.precioMayor : p.precio;
 total += precio * p.cantidad;
 
 panel.innerHTML += `
-
-<p>
-${p.nombre} x${p.cantidad}
-= $${precio * p.cantidad}
-</p>
-
+<p>${p.nombre} x${p.cantidad} = $${precio*p.cantidad}</p>
 `;
 
 });
 
 document.getElementById("contador").innerText = carrito.length;
 
-panel.innerHTML += "<hr>Total: $"+total;
+panel.innerHTML += "<hr>Total: $" + total;
 
 }
 
-/* ================= TOGGLE ================= */
+/* ================= CARRITO ================= */
 
 function toggleCarrito(){
 
 let p = document.getElementById("carritoPanel");
 
-p.style.display = p.style.display=="block"?"none":"block";
+p.style.display = p.style.display=="block" ? "none" : "block";
 
 }
 
-/* ================= BUSCADOR ================= */
+/* ================= BUSCADOR (ARREGLADO) ================= */
 
 document.getElementById("buscar").addEventListener("input",e=>{
 
 let t = e.target.value.toLowerCase();
 
-let f = productos.filter(p=>p.nombre.toLowerCase().includes(t));
+let filtrados = productos.filter(p =>
+p.nombre.toLowerCase().includes(t)
+);
 
-document.getElementById("productos").innerHTML="";
-
-f.forEach((p,i)=>{
-
-document.getElementById("productos").innerHTML += `
-<div class="producto">
-<img src="${p.img}">
-<h4>${p.nombre}</h4>
-<p>$${p.precio}</p>
-</div>`;
-
-});
+mostrar(filtrados);
 
 });
 
