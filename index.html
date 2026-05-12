@@ -5,279 +5,330 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YORCH TECH</title>
-
-<link rel="manifest" href="manifest.json">
+<title>YORCH TECH PRO</title>
 
 <style>
 
-/* ================= GENERAL ================= */
-
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#f2f2f2;
-    transition:0.3s;
+font-family:Arial;
+background:#f2f2f2;
 }
 
 /* ================= HEADER ================= */
 
 header{
-    background:#111;
-    color:white;
-    padding:15px;
-    text-align:center;
-    position:sticky;
-    top:0;
-    z-index:1000;
+background:#111;
+color:white;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 header h1{
-    margin:0;
+font-size:28px;
 }
 
-/* ================= BOTONES FLOTANTES ================= */
-
-.admin-btn,
-.dark-btn,
-.install-btn{
-
-    position:fixed;
-    left:15px;
-    width:50px;
-    height:50px;
-    border:none;
-    border-radius:50%;
-    color:white;
-    cursor:pointer;
-    z-index:9999;
-    font-size:20px;
-
-}
+/* ================= BOTONES ================= */
 
 .admin-btn{
-    top:20px;
-    background:#ff9800;
+position:fixed;
+top:20px;
+left:20px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#ff9800;
+color:white;
+font-size:22px;
+cursor:pointer;
+z-index:9999;
 }
 
 .dark-btn{
-    top:80px;
-    background:#222;
-}
-
-.install-btn{
-    top:140px;
-    background:#25D366;
-    display:none;
+position:fixed;
+top:90px;
+left:20px;
+width:55px;
+height:55px;
+border:none;
+border-radius:50%;
+background:#222;
+color:white;
+font-size:22px;
+cursor:pointer;
+z-index:9999;
 }
 
 /* ================= BUSCADOR ================= */
 
 .buscar{
-    padding:15px;
-    text-align:center;
+padding:15px;
+text-align:center;
 }
 
 .buscar input{
-    width:90%;
-    max-width:500px;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+width:90%;
+max-width:500px;
+padding:12px;
+border:none;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 /* ================= PRODUCTOS ================= */
 
 .productos{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-    gap:15px;
-    padding:15px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
+gap:15px;
+padding:15px;
 }
 
 .producto{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
-    transition:0.3s;
-    position:relative;
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 3px 10px rgba(0,0,0,0.12);
+transition:0.3s;
+position:relative;
 }
 
 .producto:hover{
-    transform:translateY(-5px);
+transform:translateY(-5px);
 }
 
 .producto img{
-    width:100%;
-    height:160px;
-    object-fit:cover;
+width:100%;
+height:170px;
+object-fit:cover;
 }
 
 .info{
-    padding:10px;
-    text-align:center;
+padding:10px;
+text-align:center;
+}
+
+.info h3{
+font-size:16px;
+margin-bottom:5px;
 }
 
 .precio{
-    color:green;
-    font-weight:bold;
-    margin:5px 0;
+color:green;
+font-weight:bold;
+font-size:18px;
+}
+
+.mayor{
+color:#ff9800;
+font-size:13px;
+margin-top:4px;
+font-weight:bold;
 }
 
 .btn{
-    width:100%;
-    padding:10px;
-    border:none;
-    background:#25D366;
-    color:white;
-    cursor:pointer;
+width:100%;
+padding:10px;
+border:none;
+background:#25D366;
+color:white;
+cursor:pointer;
+margin-top:8px;
+font-weight:bold;
 }
 
 /* ================= FAVORITOS ================= */
 
 .favorito{
-    position:absolute;
-    top:10px;
-    right:10px;
-    background:white;
-    width:35px;
-    height:35px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
-    font-size:18px;
+position:absolute;
+top:10px;
+right:10px;
+background:white;
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+font-size:18px;
 }
 
 /* ================= CARRITO ================= */
 
 .carrito-btn{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:black;
-    color:white;
-    padding:12px 18px;
-    border-radius:30px;
-    cursor:pointer;
-    z-index:999;
+position:fixed;
+bottom:20px;
+right:20px;
+background:black;
+color:white;
+padding:12px 18px;
+border-radius:30px;
+cursor:pointer;
+z-index:999;
+font-weight:bold;
 }
 
 .carrito-panel{
-    position:fixed;
-    right:20px;
-    bottom:80px;
-    width:300px;
-    max-height:450px;
-    overflow:auto;
-    background:white;
-    border-radius:15px;
-    padding:15px;
-    display:none;
-    box-shadow:0 0 15px rgba(0,0,0,0.3);
-    z-index:999;
+position:fixed;
+right:20px;
+bottom:80px;
+width:320px;
+max-height:450px;
+overflow:auto;
+background:white;
+border-radius:15px;
+padding:15px;
+display:none;
+box-shadow:0 0 15px rgba(0,0,0,0.3);
+z-index:999;
 }
 
 .carrito-panel input{
-    width:100%;
-    padding:8px;
-    margin:4px 0;
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ccc;
 }
 
 .finalizar{
-    width:100%;
-    padding:10px;
-    background:#ff9800;
-    border:none;
-    color:white;
-    cursor:pointer;
+width:100%;
+padding:12px;
+border:none;
+background:#ff9800;
+color:white;
+cursor:pointer;
+margin-top:10px;
+font-weight:bold;
+border-radius:8px;
 }
 
 /* ================= ADMIN PANEL ================= */
 
 .admin-panel{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:10000;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:10000;
 }
 
 .admin-box{
-    background:white;
-    width:320px;
-    padding:20px;
-    border-radius:15px;
+background:white;
+width:340px;
+padding:20px;
+border-radius:15px;
+max-height:90vh;
+overflow:auto;
+}
+
+.admin-box h3{
+margin-bottom:10px;
 }
 
 .admin-box input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
+width:100%;
+padding:10px;
+margin:5px 0;
+border-radius:8px;
+border:1px solid #ccc;
 }
 
 .admin-box button{
-    width:100%;
-    padding:10px;
-    margin-top:5px;
-    border:none;
-    cursor:pointer;
+width:100%;
+padding:10px;
+margin-top:5px;
+border:none;
+cursor:pointer;
+border-radius:8px;
+}
+
+/* ================= LISTA ADMIN ================= */
+
+.lista-admin{
+margin-top:15px;
+max-height:250px;
+overflow:auto;
+}
+
+.item-admin{
+background:#f2f2f2;
+padding:10px;
+border-radius:10px;
+margin-bottom:8px;
+}
+
+.item-admin button{
+margin-top:5px;
+}
+
+.delete-btn{
+background:red;
+color:white;
+}
+
+.edit-btn{
+background:#25D366;
+color:white;
 }
 
 /* ================= LOGIN ================= */
 
 .login-panel{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:20000;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:20000;
 }
 
 .login-box{
-    background:white;
-    padding:20px;
-    border-radius:15px;
-    width:300px;
+background:white;
+padding:20px;
+border-radius:15px;
+width:300px;
 }
 
 .login-box input{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
+width:100%;
+padding:10px;
+margin:10px 0;
 }
 
 /* ================= DARK ================= */
 
 .dark{
-    background:#121212;
-    color:white;
+background:#121212;
+color:white;
 }
 
 .dark .producto,
 .dark .carrito-panel,
 .dark .admin-box,
-.dark .login-box{
-    background:#1f1f1f;
-    color:white;
+.dark .login-box,
+.dark .item-admin{
+background:#1f1f1f;
+color:white;
 }
 
 .dark input{
-    background:#333;
-    color:white;
-    border:none;
+background:#333;
+color:white;
+border:none;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -325,7 +376,7 @@ Entrar
 
 <header>
 
-<h1>YORCH TECH</h1>
+<h1>YORCH TECH PRO</h1>
 
 </header>
 
@@ -339,11 +390,6 @@ onclick="abrirAdmin()">
 <button class="dark-btn"
 onclick="toggleDark()">
 🌙
-</button>
-
-<button class="install-btn"
-id="installBtn">
-📲
 </button>
 
 <!-- BUSCADOR -->
@@ -398,34 +444,49 @@ Enviar pedido
 
 </div>
 
-<!-- ADMIN -->
+<!-- PANEL ADMIN -->
 
 <div class="admin-panel"
 id="adminPanel">
 
 <div class="admin-box">
 
-<h3>Panel Administrador</h3>
+<h3>⚙ Panel Administrador</h3>
 
 <input id="pNombre"
-placeholder="Nombre">
+placeholder="Nombre producto">
 
 <input id="pPrecio"
-placeholder="Precio">
+placeholder="Precio normal">
+
+<input id="pMayor"
+placeholder="Precio por mayor">
+
+<input id="pCantidadMayor"
+placeholder="Cantidad mínima mayorista">
 
 <input id="pImagen"
-placeholder="Imagen URL">
+placeholder="URL imagen">
 
 <input id="pCategoria"
 placeholder="Categoría">
 
-<button onclick="agregarProducto()">
+<button onclick="agregarProducto()"
+style="background:#25D366;color:white;">
+
 Agregar producto
+
 </button>
 
-<button onclick="cerrarAdmin()">
+<button onclick="cerrarAdmin()"
+style="background:#ff9800;color:white;">
+
 Cerrar
+
 </button>
+
+<div class="lista-admin"
+id="listaAdmin"></div>
 
 </div>
 
@@ -501,6 +562,12 @@ ${fav}
 $${p.precio}
 </p>
 
+<p class="mayor">
+🔥 Mayor:
+$${p.precioMayor}
+desde ${p.cantidadMayor} unidades
+</p>
+
 <button class="btn"
 onclick="agregarCarrito(${index})">
 
@@ -549,6 +616,8 @@ function abrirAdmin(){
 document.getElementById("adminPanel")
 .style.display="flex";
 
+mostrarListaAdmin();
+
 }
 
 function cerrarAdmin(){
@@ -570,6 +639,16 @@ parseFloat(
 document.getElementById("pPrecio").value
 ),
 
+precioMayor:
+parseFloat(
+document.getElementById("pMayor").value
+),
+
+cantidadMayor:
+parseInt(
+document.getElementById("pCantidadMayor").value
+),
+
 imagen:
 document.getElementById("pImagen").value,
 
@@ -580,14 +659,76 @@ document.getElementById("pCategoria").value
 
 productos.push(p);
 
+guardarProductos();
+
+mostrar(productos);
+
+mostrarListaAdmin();
+
+}
+
+/* ================= GUARDAR ================= */
+
+function guardarProductos(){
+
 localStorage.setItem(
 "productos",
 JSON.stringify(productos)
 );
 
+}
+
+/* ================= LISTA ADMIN ================= */
+
+function mostrarListaAdmin(){
+
+let lista =
+document.getElementById("listaAdmin");
+
+lista.innerHTML="";
+
+productos.forEach((p,index)=>{
+
+lista.innerHTML += `
+
+<div class="item-admin">
+
+<b>${p.nombre}</b>
+
+<p>
+$${p.precio}
+</p>
+
+<button class="delete-btn"
+onclick="eliminarProducto(${index})">
+
+Eliminar
+
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+/* ================= ELIMINAR ================= */
+
+function eliminarProducto(index){
+
+if(confirm("Eliminar producto?")){
+
+productos.splice(index,1);
+
+guardarProductos();
+
 mostrar(productos);
 
-cerrarAdmin();
+mostrarListaAdmin();
+
+}
 
 }
 
@@ -609,6 +750,8 @@ existe.cantidad++;
 carrito.push({
 nombre:p.nombre,
 precio:p.precio,
+precioMayor:p.precioMayor,
+cantidadMayor:p.cantidadMayor,
 cantidad:1
 });
 
@@ -618,7 +761,7 @@ guardarCarrito();
 
 }
 
-/* ================= GUARDAR ================= */
+/* ================= GUARDAR CARRITO ================= */
 
 function guardarCarrito(){
 
@@ -644,7 +787,15 @@ let total=0;
 
 carrito.forEach((p,index)=>{
 
-total += p.precio*p.cantidad;
+let precioFinal =
+p.cantidad >= p.cantidadMayor
+? p.precioMayor
+: p.precio;
+
+let subtotal =
+precioFinal * p.cantidad;
+
+total += subtotal;
 
 lista.innerHTML += `
 
@@ -654,7 +805,14 @@ ${p.nombre}
 
 x${p.cantidad}
 
-= $${p.precio*p.cantidad}
+<br>
+
+💲 ${precioFinal}
+c/u
+
+<br>
+
+= $${subtotal}
 
 </p>
 
@@ -731,17 +889,24 @@ let direccion =
 document.getElementById("direccion").value;
 
 let msg =
-"PEDIDO:%0A%0A";
+"🛒 PEDIDO:%0A%0A";
 
 let total=0;
 
 carrito.forEach(p=>{
 
-msg +=
-`${p.nombre} x${p.cantidad} - $${p.precio*p.cantidad}%0A`;
+let precioFinal =
+p.cantidad >= p.cantidadMayor
+? p.precioMayor
+: p.precio;
 
-total +=
-p.precio*p.cantidad;
+let subtotal =
+precioFinal * p.cantidad;
+
+msg +=
+`${p.nombre} x${p.cantidad} - $${subtotal}%0A`;
+
+total += subtotal;
 
 });
 
@@ -762,34 +927,6 @@ window.open(
 );
 
 }
-
-/* ================= PWA ================= */
-
-let deferredPrompt;
-
-window.addEventListener(
-"beforeinstallprompt",
-(e)=>{
-
-e.preventDefault();
-
-deferredPrompt = e;
-
-document.getElementById("installBtn")
-.style.display="block";
-
-});
-
-document.getElementById("installBtn")
-.addEventListener("click",()=>{
-
-if(deferredPrompt){
-
-deferredPrompt.prompt();
-
-}
-
-});
 
 /* ================= INICIO ================= */
 
