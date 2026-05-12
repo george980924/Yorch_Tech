@@ -9,190 +9,408 @@
 
 <style>
 
-body{
+/* ================= GENERAL ================= */
+
+*{
     margin:0;
-    font-family:Arial;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
     background:#f2f2f2;
+    color:#111;
+    scroll-behavior:smooth;
+    transition:0.3s;
 }
 
-/* HEADER */
-
-header{
-    position:relative;
-    text-align:center;
-}
-
-.banner{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-    filter:brightness(0.5);
-}
-
-.titulo{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    color:white;
-    font-size:40px;
-    font-weight:bold;
-}
-
-/* BOTONES */
+/* ================= TOPBAR ================= */
 
 .topbar{
     background:#111;
     color:white;
     text-align:center;
-    padding:8px;
-    font-size:13px;
+    padding:10px;
+    font-size:14px;
+    font-weight:bold;
 }
 
-/* BUSCADOR */
+/* ================= HEADER ================= */
+
+header{
+    position:relative;
+    overflow:hidden;
+}
+
+.slider{
+    position:relative;
+    width:100%;
+    height:260px;
+}
+
+.slide{
+    position:absolute;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transition:1s;
+}
+
+.slide.active{
+    opacity:1;
+}
+
+.slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.5);
+}
+
+.overlay{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+    color:white;
+    z-index:10;
+}
+
+.logo{
+    width:120px;
+}
+
+.titulo{
+    font-size:50px;
+    font-weight:900;
+    margin-top:10px;
+    letter-spacing:2px;
+    text-shadow:0 5px 15px rgba(0,0,0,0.7);
+}
+
+/* ================= BUSCADOR ================= */
 
 .buscar{
+    padding:20px;
     text-align:center;
-    padding:15px;
 }
 
 .buscar input{
     width:85%;
-    padding:12px;
-    border-radius:10px;
+    max-width:550px;
+    padding:15px;
     border:none;
+    border-radius:15px;
+    outline:none;
+    font-size:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* BOTONES CATEGORÍA */
+/* ================= CATEGORÍAS ================= */
 
 .categorias{
     text-align:center;
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 
 .categorias button{
-    padding:8px 12px;
-    margin:3px;
     border:none;
+    padding:10px 18px;
+    margin:5px;
+    border-radius:30px;
     background:#ff9800;
     color:white;
-    border-radius:20px;
+    font-weight:bold;
     cursor:pointer;
+    transition:0.3s;
 }
 
-/* PRODUCTOS */
+.categorias button:hover{
+    transform:scale(1.05);
+}
+
+/* ================= PRODUCTOS ================= */
 
 .productos{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-    gap:12px;
-    padding:12px;
+    grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+    gap:18px;
+    padding:18px;
 }
 
 .producto{
     background:white;
-    border-radius:15px;
+    border-radius:20px;
     overflow:hidden;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+    box-shadow:0 5px 15px rgba(0,0,0,0.12);
+    transition:0.3s;
     position:relative;
+}
+
+.producto:hover{
+    transform:translateY(-6px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
 .producto img{
     width:100%;
-    height:140px;
+    height:180px;
     object-fit:cover;
+    transition:0.3s;
 }
 
-.producto h3{
-    font-size:14px;
+.producto img:hover{
+    transform:scale(1.05);
+}
+
+.info{
+    padding:12px;
+    text-align:center;
+}
+
+.info h3{
+    margin:8px 0;
+    font-size:18px;
 }
 
 .precio{
     color:green;
     font-weight:bold;
+    margin:10px 0;
 }
 
-/* BOTÓN */
+/* ================= ETIQUETAS ================= */
 
-.btn{
-    background:#25D366;
-    color:white;
-    border:none;
-    padding:8px;
-    width:100%;
-    cursor:pointer;
-}
-
-/* FAVORITO */
-
-.heart{
+.badge{
     position:absolute;
-    top:8px;
-    right:8px;
-    background:white;
-    border-radius:50%;
-    padding:5px;
-    cursor:pointer;
-}
-
-/* CARRITO */
-
-.carrito-btn{
-    position:fixed;
-    bottom:90px;
-    right:20px;
-    background:black;
+    top:10px;
+    left:10px;
+    background:red;
     color:white;
-    padding:10px 15px;
+    padding:5px 10px;
     border-radius:20px;
-    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
 }
 
-.carrito{
-    position:fixed;
-    bottom:140px;
-    right:20px;
-    width:280px;
+/* ================= FAVORITOS ================= */
+
+.favorito{
+    position:absolute;
+    top:10px;
+    right:10px;
     background:white;
-    border-radius:10px;
-    padding:10px;
-    display:none;
-    box-shadow:0 0 10px rgba(0,0,0,0.3);
-}
-
-.carrito button{
-    width:100%;
-    margin-top:8px;
-    padding:8px;
-    background:orange;
-    border:none;
-    color:white;
-}
-
-/* WHATSAPP */
-
-.wa{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:#25D366;
-    color:white;
-    width:55px;
-    height:55px;
+    width:35px;
+    height:35px;
     border-radius:50%;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:25px;
+    cursor:pointer;
+    font-size:18px;
 }
 
-/* SECCIÓN EXTRA */
+/* ================= CONTROLES ================= */
 
-.section-title{
-    padding:10px;
+.controles{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    margin-top:10px;
+}
+
+.controles button{
+    width:30px;
+    height:30px;
+    border:none;
+    border-radius:50%;
+    background:#ff9800;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.cantidad{
     font-weight:bold;
     font-size:18px;
+}
+
+/* ================= BOTÓN ================= */
+
+.btn{
+    width:100%;
+    margin-top:12px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(45deg,#25D366,#1ebe5d);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.03);
+}
+
+/* ================= CARRITO ================= */
+
+.carrito-icono{
+    position:fixed;
+    bottom:95px;
+    right:20px;
+    background:#111;
+    color:white;
+    padding:12px 16px;
+    border-radius:30px;
+    cursor:pointer;
+    z-index:999;
+    font-weight:bold;
+}
+
+.carrito-panel{
+    position:fixed;
+    right:20px;
+    bottom:150px;
+    width:320px;
+    max-height:430px;
+    overflow-y:auto;
+    background:white;
+    border-radius:18px;
+    padding:15px;
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+    display:none;
+    z-index:1000;
+}
+
+.carrito-panel input{
+    width:100%;
+    padding:10px;
+    margin:5px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.finalizar{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff9800;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+/* ================= BOTONES CARRITO ================= */
+
+.cantidad-btn{
+    background:#ff9800;
+    color:white;
+    border:none;
+    padding:3px 7px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.eliminar-btn{
+    background:red;
+    color:white;
+    border:none;
+    padding:3px 7px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* ================= WHATSAPP ================= */
+
+.whatsapp{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#25D366;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:28px;
+    z-index:999;
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    top:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    padding:15px;
+    border-radius:10px;
+    display:none;
+    font-weight:bold;
+    z-index:3000;
+}
+
+/* ================= DARK MODE ================= */
+
+.dark{
+    background:#121212;
+    color:white;
+}
+
+.dark .producto,
+.dark .carrito-panel{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark .buscar input{
+    background:#1f1f1f;
+    color:white;
+}
+
+.dark-btn{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:#111;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    z-index:999;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:600px){
+
+    .titulo{
+        font-size:35px;
+    }
+
+    .productos{
+        grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    }
+
+    .carrito-panel{
+        width:92%;
+        right:4%;
+    }
+
 }
 
 </style>
@@ -201,269 +419,659 @@ header{
 
 <body>
 
+<!-- TOPBAR -->
+
 <div class="topbar">
-🚚 Envíos en Holguín
+🚚 Envíos disponibles en Holguín
 </div>
+
+<!-- HEADER -->
 
 <header>
 
-<img src="banner.png" class="banner">
+<div class="slider">
 
-<div class="titulo">YORCH TECH</div>
+<div class="slide active">
+<img src="banner1.png">
+</div>
+
+<div class="slide">
+<img src="banner2.png">
+</div>
+
+<div class="slide">
+<img src="banner3.png">
+</div>
+
+</div>
+
+<div class="overlay">
+
+<img src="logo.png" class="logo">
+
+<h1 class="titulo">
+YORCH TECH
+</h1>
+
+</div>
 
 </header>
 
 <!-- BUSCADOR -->
 
 <div class="buscar">
-<input id="buscar" placeholder="Buscar...">
+
+<input id="buscar"
+placeholder="Buscar productos...">
+
 </div>
 
-<!-- BOTONES -->
+<!-- CATEGORÍAS -->
 
 <div class="categorias">
 
-<button onclick="filtrar('todos')">Todos</button>
-<button onclick="filtrar('BMS')">BMS</button>
-<button onclick="verFavoritos()">Favoritos ❤️</button>
-<button onclick="verTop()">Más vendidos 🔥</button>
+<button onclick="filtrar('todos')">
+Todos
+</button>
+
+<button onclick="filtrar('BMS')">
+BMS
+</button>
+
+<button onclick="filtrar('OTROS')">
+OTROS
+</button>
+
+<button onclick="mostrarFavoritos()">
+❤️ Favoritos
+</button>
 
 </div>
 
 <!-- PRODUCTOS -->
 
-<div class="section-title" id="tituloSeccion">Productos</div>
+<div class="productos"
+id="productos"></div>
 
-<div class="productos" id="productos"></div>
+<!-- TOAST -->
+
+<div class="toast"
+id="toast">
+✅ Producto agregado
+</div>
 
 <!-- CARRITO -->
 
-<div class="carrito-btn" onclick="toggleCarrito()">
+<div class="carrito-icono"
+onclick="toggleCarrito()">
+
 🛒 <span id="contador">0</span>
+
 </div>
 
-<div class="carrito" id="carrito">
+<div class="carrito-panel"
+id="carritoPanel">
 
-<h4>Tu carrito</h4>
+<h3>🛒 Tu carrito</h3>
 
-<div id="lista"></div>
+<input id="nombre"
+placeholder="Nombre">
 
-<p><b>Total: $<span id="total">0</span></b></p>
+<input id="telefonoCliente"
+placeholder="Teléfono">
 
-<button onclick="enviar()">Finalizar</button>
+<input id="direccion"
+placeholder="Dirección">
+
+<input id="referencia"
+placeholder="Referencia">
+
+<input id="ubicacion"
+placeholder="Ubicación">
+
+<div id="listaCarrito"></div>
+
+<p>
+<strong>
+Total: $<span id="total">0</span>
+</strong>
+</p>
+
+<button class="finalizar"
+onclick="enviarPedido()">
+
+Finalizar pedido
+
+</button>
 
 </div>
 
 <!-- WHATSAPP -->
 
-<a class="wa" href="https://wa.me/5358103725">💬</a>
+<a href="https://wa.me/5358103725"
+class="whatsapp"
+target="_blank">
+
+💬
+
+</a>
+
+<!-- DARK MODE -->
+
+<button class="dark-btn"
+onclick="toggleDark()">
+
+🌙
+
+</button>
+
+<!-- PRODUCTOS -->
 
 <script src="productos.js"></script>
 
 <script>
 
-let carrito = {};
-let favoritos = [];
-let vendidos = {};
+/* ================= VARIABLES ================= */
+
+let telefono="5358103725";
+
+let carrito=[];
+
+let cantidades={};
+
+let favoritos=[];
+
+/* ================= STORAGE ================= */
+
+if(localStorage.getItem("carrito")){
+    carrito =
+    JSON.parse(localStorage.getItem("carrito"));
+}
+
+if(localStorage.getItem("favoritos")){
+    favoritos =
+    JSON.parse(localStorage.getItem("favoritos"));
+}
+
+if(localStorage.getItem("modo")=="dark"){
+    document.body.classList.add("dark");
+}
+
+/* ================= MOSTRAR ================= */
 
 function mostrar(lista){
 
-let cont = document.getElementById("productos");
+    let cont=
+    document.getElementById("productos");
 
-cont.innerHTML = "";
+    cont.innerHTML="";
 
-lista.forEach(p=>{
+    lista.forEach((p)=>{
 
-if(!vendidos[p.nombre]) vendidos[p.nombre]=0;
+        if(!cantidades[p.nombre]){
+            cantidades[p.nombre]=1;
+        }
 
-cont.innerHTML += `
+        let corazon =
+        favoritos.includes(p.nombre)
+        ? "❤️"
+        : "🤍";
 
-<div class="producto">
+        cont.innerHTML += `
 
-<div class="heart" onclick="fav('${p.nombre}')">
-❤
-</div>
+        <div class="producto">
 
-<img src="${p.imagen}">
+            <div class="badge">
+            OFERTA
+            </div>
 
-<h3>${p.nombre}</h3>
+            <div class="favorito"
+            onclick="toggleFavorito('${p.nombre}')">
 
-<p class="precio">$${p.precio}</p>
+            ${corazon}
 
-<button class="btn" onclick="agregar('${p.nombre}',${p.precio})">
-Agregar
-</button>
+            </div>
 
-</div>
+            <img src="${p.imagen}">
 
-`;
+            <div class="info">
 
-});
+                <h3>${p.nombre}</h3>
+
+                <p class="precio">
+                $${p.precio}
+                </p>
+
+                <small>${p.info}</small>
+
+                <div class="controles">
+
+                    <button onclick=
+                    "cambiarCantidad('${p.nombre}',-1)">
+                    -
+                    </button>
+
+                    <div class="cantidad"
+                    id="cant-${p.nombre}">
+                    ${cantidades[p.nombre]}
+                    </div>
+
+                    <button onclick=
+                    "cambiarCantidad('${p.nombre}',1)">
+                    +
+                    </button>
+
+                </div>
+
+                <button class="btn"
+                onclick=
+                "agregar('${p.nombre}',${p.precio})">
+
+                Agregar
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
 
 }
 
-mostrar(productos);
+/* ================= FAVORITOS ================= */
 
-/* CARRITO INTELIGENTE */
+function toggleFavorito(nombre){
+
+    if(favoritos.includes(nombre)){
+
+        favoritos =
+        favoritos.filter(f=>f!=nombre);
+
+    }else{
+
+        favoritos.push(nombre);
+
+    }
+
+    localStorage.setItem(
+    "favoritos",
+    JSON.stringify(favoritos)
+    );
+
+    mostrar(productos);
+
+}
+
+function mostrarFavoritos(){
+
+    let filtrados =
+    productos.filter(
+    p=>favoritos.includes(p.nombre)
+    );
+
+    mostrar(filtrados);
+
+}
+
+/* ================= CANTIDAD ================= */
+
+function cambiarCantidad(nombre,delta){
+
+    cantidades[nombre]+=delta;
+
+    if(cantidades[nombre]<1){
+        cantidades[nombre]=1;
+    }
+
+    document.getElementById(
+    "cant-"+nombre
+    ).innerText=
+    cantidades[nombre];
+
+}
+
+/* ================= AGREGAR ================= */
 
 function agregar(nombre,precio){
 
-if(carrito[nombre]){
+    let cantidad=
+    cantidades[nombre];
 
-carrito[nombre].cantidad++;
+    let existe =
+    carrito.find(
+    p=>p.nombre==nombre
+    );
 
-}else{
+    if(existe){
 
-carrito[nombre] = {precio:precio,cantidad:1};
+        existe.cantidad += cantidad;
 
-}
+    }else{
 
-vendidos[nombre]++;
+        carrito.push({
+            nombre,
+            precio,
+            cantidad
+        });
 
-actualizar();
+    }
 
-}
+    localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+    );
 
-/* ACTUALIZAR */
+    actualizarContador();
 
-function actualizar(){
+    mostrarCarrito();
 
-let lista = document.getElementById("lista");
-
-lista.innerHTML = "";
-
-let total = 0;
-
-for(let p in carrito){
-
-let item = carrito[p];
-
-total += item.precio * item.cantidad;
-
-lista.innerHTML += `
-
-<p>
-
-${p} x${item.cantidad}
-
-= $${item.precio * item.cantidad}
-
-</p>
-
-`;
+    toast();
 
 }
 
-document.getElementById("total").innerText = total;
+/* ================= TOAST ================= */
 
-document.getElementById("contador").innerText =
-Object.keys(carrito).length;
+function toast(){
 
-}
+    let t=
+    document.getElementById("toast");
 
-/* FAVORITOS */
+    t.style.display="block";
 
-function fav(nombre){
-
-if(favoritos.includes(nombre)){
-
-favoritos = favoritos.filter(f=>f!=nombre);
-
-}else{
-
-favoritos.push(nombre);
+    setTimeout(()=>{
+        t.style.display="none";
+    },2000);
 
 }
 
-alert("Actualizado favoritos");
+/* ================= CONTADOR ================= */
+
+function actualizarContador(){
+
+    document.getElementById("contador")
+    .innerText=
+    carrito.length;
 
 }
 
-/* VER FAVORITOS */
+/* ================= MOSTRAR CARRITO ================= */
 
-function verFavoritos(){
+function mostrarCarrito(){
 
-let lista = productos.filter(p=>favoritos.includes(p.nombre));
+    let lista=
+    document.getElementById("listaCarrito");
 
-document.getElementById("tituloSeccion").innerText = "Favoritos";
+    let totalHTML=
+    document.getElementById("total");
 
-mostrar(lista);
+    lista.innerHTML="";
+
+    let total=0;
+
+    carrito.forEach((p,index)=>{
+
+        lista.innerHTML += `
+
+        <p>
+
+        ${p.nombre}
+
+        x${p.cantidad}
+
+        - $${p.precio*p.cantidad}
+
+        <button class="cantidad-btn"
+        onclick="modificarCantidad(${index},1)">
+        +
+        </button>
+
+        <button class="cantidad-btn"
+        onclick="modificarCantidad(${index},-1)">
+        -
+        </button>
+
+        <button class="eliminar-btn"
+        onclick="eliminarProducto(${index})">
+        ❌
+        </button>
+
+        </p>
+
+        `;
+
+        total += p.precio*p.cantidad;
+
+    });
+
+    totalHTML.innerText=total;
 
 }
 
-/* TOP VENDIDOS */
+/* ================= MODIFICAR ================= */
 
-function verTop(){
+function modificarCantidad(index,delta){
 
-let top = productos.sort((a,b)=> (vendidos[b.nombre]||0)-(vendidos[a.nombre]||0));
+    carrito[index].cantidad += delta;
 
-document.getElementById("tituloSeccion").innerText = "Más vendidos";
+    if(carrito[index].cantidad<1){
+        carrito[index].cantidad=1;
+    }
 
-mostrar(top);
+    localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+    );
 
-}
+    actualizarContador();
 
-/* FILTRO */
-
-function filtrar(cat){
-
-if(cat=="todos"){
-
-document.getElementById("tituloSeccion").innerText="Productos";
-
-mostrar(productos);
-
-return;
+    mostrarCarrito();
 
 }
 
-let f = productos.filter(p=>p.categoria==cat);
+/* ================= ELIMINAR ================= */
 
-mostrar(f);
+function eliminarProducto(index){
+
+    carrito.splice(index,1);
+
+    localStorage.setItem(
+    "carrito",
+    JSON.stringify(carrito)
+    );
+
+    actualizarContador();
+
+    mostrarCarrito();
 
 }
 
-/* CARRITO */
+/* ================= TOGGLE ================= */
 
 function toggleCarrito(){
 
-let c = document.getElementById("carrito");
+    let panel=
+    document.getElementById("carritoPanel");
 
-c.style.display = c.style.display=="block"?"none":"block";
+    panel.style.display=
+    panel.style.display=="block"
+    ? "none"
+    : "block";
 
 }
 
-/* BUSCAR */
+/* ================= FILTROS ================= */
 
-document.getElementById("buscar").addEventListener("input",e=>{
+function filtrar(cat){
 
-let t = e.target.value.toLowerCase();
+    if(cat=="todos"){
+        mostrar(productos);
+        return;
+    }
 
-mostrar(productos.filter(p=>p.nombre.toLowerCase().includes(t)));
+    let filtrados=
+    productos.filter(
+    p=>p.categoria==cat
+    );
+
+    mostrar(filtrados);
+
+}
+
+/* ================= BUSCADOR ================= */
+
+document.getElementById("buscar")
+.addEventListener("keyup",function(){
+
+    let texto=
+    this.value.toLowerCase();
+
+    let filtrados=
+    productos.filter(
+    p=>p.nombre
+    .toLowerCase()
+    .includes(texto)
+    );
+
+    mostrar(filtrados);
 
 });
 
-/* ENVIAR */
+/* ================= DARK ================= */
 
-function enviar(){
+function toggleDark(){
 
-let msg = "Pedido:%0A";
+    document.body.classList.toggle("dark");
 
-let total = 0;
+    if(document.body.classList.contains("dark")){
 
-for(let p in carrito){
+        localStorage.setItem("modo","dark");
 
-msg += `${p} x${carrito[p].cantidad}%0A`;
+    }else{
 
-total += carrito[p].precio * carrito[p].cantidad;
+        localStorage.setItem("modo","light");
+
+    }
+
+}
+
+/* ================= SLIDER ================= */
+
+let slides=
+document.querySelectorAll(".slide");
+
+let actual=0;
+
+setInterval(()=>{
+
+    slides[actual]
+    .classList.remove("active");
+
+    actual++;
+
+    if(actual>=slides.length){
+        actual=0;
+    }
+
+    slides[actual]
+    .classList.add("active");
+
+},4000);
+
+/* ================= ENVIAR ================= */
+
+function enviarPedido(){
+
+    if(carrito.length==0){
+
+        alert("Carrito vacío");
+
+        return;
+
+    }
+
+    let nombre=
+    document.getElementById("nombre").value;
+
+    let tel=
+    document.getElementById("telefonoCliente").value;
+
+    let direccion=
+    document.getElementById("direccion").value;
+
+    let referencia=
+    document.getElementById("referencia").value;
+
+    let ubicacion=
+    document.getElementById("ubicacion").value;
+
+    if(nombre=="" || tel=="" || direccion==""){
+
+        alert("Complete los datos");
+
+        return;
+
+    }
+
+    let mensaje="PEDIDO:%0A%0A";
+
+    let total=0;
+
+    carrito.forEach(p=>{
+
+        mensaje +=
+        p.nombre+
+        " x"+p.cantidad+
+        " - $"+
+        (p.precio*p.cantidad)+
+        "%0A";
+
+        total +=
+        p.precio*p.cantidad;
+
+    });
+
+    mensaje +=
+    "%0ATotal: $"+total+
+    "%0A%0A";
+
+    mensaje +=
+    "Nombre: "+nombre+"%0A"+
+    "Teléfono: "+tel+"%0A"+
+    "Dirección: "+direccion+"%0A"+
+    "Referencia: "+referencia+"%0A"+
+    "Ubicación: "+ubicacion;
+
+    let url=
+    "https://wa.me/"+
+    telefono+
+    "?text="+mensaje;
+
+    window.open(url);
+
+    carrito=[];
+
+    localStorage.removeItem("carrito");
+
+    actualizarContador();
+
+    mostrarCarrito();
+
+    document.getElementById(
+    "carritoPanel"
+    ).style.display="none";
 
 }
 
-msg += `%0ATotal: $${total}`;
+/* ================= INICIO ================= */
 
-window.open("https://wa.me/5358103725?text="+msg);
+mostrar(productos);
 
-}
+actualizarContador();
+
+mostrarCarrito();
 
 </script>
 
