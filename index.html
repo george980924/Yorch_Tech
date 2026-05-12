@@ -15,155 +15,115 @@ body{
     background:#f2f2f2;
 }
 
+/* HEADER */
+
 header{
+    text-align:center;
     background:#111;
     color:white;
-    text-align:center;
     padding:15px;
-    font-weight:bold;
 }
 
-/* ADMIN */
+h1{
+    margin:0;
+}
+
+/* BOTÓN ADMIN */
 
 .admin-btn{
     position:fixed;
     top:15px;
     right:15px;
-    width:50px;
-    height:50px;
-    border-radius:50%;
-    border:none;
     background:#ff9800;
-    color:white;
-    font-size:22px;
-    cursor:pointer;
-    z-index:999;
-}
-
-/* BUSCADOR */
-
-.buscar{
-    text-align:center;
-    padding:15px;
-}
-
-.buscar input{
-    width:90%;
-    max-width:500px;
-    padding:12px;
-    border-radius:10px;
     border:none;
+    padding:10px 12px;
+    border-radius:10px;
+    color:white;
+    cursor:pointer;
+}
+
+/* PANEL ADMIN */
+
+.admin-panel{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.admin-box{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    width:300px;
+}
+
+.admin-box input{
+    width:100%;
+    padding:8px;
+    margin:5px 0;
 }
 
 /* PRODUCTOS */
 
 .productos{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(170px,1fr));
-    gap:15px;
-    padding:15px;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:10px;
+    padding:10px;
 }
 
 .producto{
     background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow:0 3px 10px rgba(0,0,0,0.1);
-    position:relative;
-}
-
-.producto img{
-    width:100%;
-    height:150px;
-    object-fit:cover;
-}
-
-.info{
+    border-radius:10px;
     padding:10px;
     text-align:center;
 }
 
-.precio{
-    color:green;
-    font-weight:bold;
-}
-
-.mayor{
-    font-size:12px;
-    color:#ff9800;
+.producto img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
 }
 
 /* BOTÓN */
 
 .btn{
-    width:100%;
-    padding:10px;
-    border:none;
     background:#25D366;
     color:white;
-    cursor:pointer;
-}
-
-/* FAVORITOS */
-
-.fav{
-    position:absolute;
-    top:10px;
-    right:10px;
-    background:white;
-    width:30px;
-    height:30px;
-    border-radius:50%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    cursor:pointer;
+    border:none;
+    width:100%;
+    padding:8px;
+    margin-top:5px;
 }
 
 /* CARRITO */
 
-.carrito-btn{
+.carrito{
     position:fixed;
     bottom:20px;
     right:20px;
     background:black;
     color:white;
-    padding:10px 15px;
-    border-radius:20px;
+    padding:10px;
+    border-radius:10px;
     cursor:pointer;
 }
 
 .panel-carrito{
     position:fixed;
-    bottom:80px;
+    bottom:70px;
     right:20px;
-    width:280px;
+    width:250px;
     background:white;
     padding:10px;
     display:none;
-    border-radius:10px;
-}
-
-.admin-panel{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    justify-content:center;
-    align-items:center;
-}
-
-.admin-box{
-    background:white;
-    padding:20px;
-    width:320px;
-    border-radius:15px;
-}
-
-.admin-box input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
 }
 
 </style>
@@ -173,45 +133,31 @@ header{
 <body>
 
 <header>
-YORCH TECH
+<h1>YORCH TECH</h1>
 </header>
 
 <button class="admin-btn" onclick="abrirAdmin()">
-⚙
+⚙ Admin
 </button>
 
-<div class="buscar">
-<input id="buscar" placeholder="Buscar productos...">
-</div>
+<!-- PANEL ADMIN -->
 
-<div class="productos" id="productos"></div>
-
-<div class="carrito-btn" onclick="toggleCarrito()">
-🛒 <span id="contador">0</span>
-</div>
-
-<div class="panel-carrito" id="carritoPanel"></div>
-
-<!-- ADMIN -->
-
-<div class="admin-panel" id="adminPanel">
+<div class="admin-panel" id="admin">
 
 <div class="admin-box">
 
 <h3>Panel Admin</h3>
 
-<input id="nombre" placeholder="Nombre">
-<input id="precio" placeholder="Precio normal">
-<input id="precioMayor" placeholder="Precio mayorista">
-<input id="minMayor" placeholder="Cantidad mínima">
+<input id="nombre" placeholder="Nombre producto">
+<input id="precio" placeholder="Precio">
 <input id="img" placeholder="Imagen URL">
 <input id="cat" placeholder="Categoría">
 
-<button onclick="agregarProducto()" style="background:#25D366;color:white;">
+<button onclick="agregarProducto()">
 Agregar
 </button>
 
-<button onclick="cerrarAdmin()" style="background:red;color:white;">
+<button onclick="cerrarAdmin()">
 Cerrar
 </button>
 
@@ -219,49 +165,49 @@ Cerrar
 
 </div>
 
+<!-- PRODUCTOS -->
+
+<div class="productos" id="productos"></div>
+
+<!-- CARRITO -->
+
+<div class="carrito" onclick="toggleCarrito()">
+🛒 <span id="count">0</span>
+</div>
+
+<div class="panel-carrito" id="carritoPanel"></div>
+
 <script>
 
 /* ================= DATOS ================= */
 
 let productos = JSON.parse(localStorage.getItem("productos")) || [];
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
+let carrito = {};
 
 /* ================= MOSTRAR ================= */
 
-function mostrar(lista = productos){
+function mostrar(){
 
 let cont = document.getElementById("productos");
 
 cont.innerHTML = "";
 
-lista.forEach((p,i)=>{
-
-let f = favoritos.includes(p.nombre) ? "❤️" : "🤍";
+productos.forEach((p,i)=>{
 
 cont.innerHTML += `
 
 <div class="producto">
 
-<div class="fav" onclick="fav('${p.nombre}')">${f}</div>
-
 <img src="${p.img}">
-
-<div class="info">
 
 <h4>${p.nombre}</h4>
 
-<p class="precio">$${p.precio}</p>
-
-<p class="mayor">
-Mayor: $${p.precioMayor} desde ${p.minMayor}
-</p>
+<p>$${p.precio}</p>
 
 <button class="btn" onclick="agregar(${i})">
 Agregar
 </button>
-
-</div>
 
 </div>
 
@@ -273,38 +219,14 @@ Agregar
 
 mostrar();
 
-/* ================= FAVORITOS ================= */
-
-function fav(nombre){
-
-if(favoritos.includes(nombre)){
-favoritos = favoritos.filter(f=>f!=nombre);
-}else{
-favoritos.push(nombre);
-}
-
-localStorage.setItem("favoritos",JSON.stringify(favoritos));
-
-mostrar();
-
-}
-
 /* ================= ADMIN ================= */
 
 function abrirAdmin(){
-
-let pass = prompt("Contraseña admin:");
-
-if(pass=="1234"){
-document.getElementById("adminPanel").style.display="flex";
-}else{
-alert("Incorrecto");
-}
-
+document.getElementById("admin").style.display="flex";
 }
 
 function cerrarAdmin(){
-document.getElementById("adminPanel").style.display="none";
+document.getElementById("admin").style.display="none";
 }
 
 function agregarProducto(){
@@ -312,8 +234,6 @@ function agregarProducto(){
 let p = {
 nombre:document.getElementById("nombre").value,
 precio:parseFloat(document.getElementById("precio").value),
-precioMayor:parseFloat(document.getElementById("precioMayor").value),
-minMayor:parseInt(document.getElementById("minMayor").value),
 img:document.getElementById("img").value,
 cat:document.getElementById("cat").value
 };
@@ -334,27 +254,24 @@ function agregar(i){
 
 let p = productos[i];
 
-let e = carrito.find(x=>x.nombre==p.nombre);
+if(carrito[p.nombre]){
 
-if(e){
-e.cantidad++;
+carrito[p.nombre].cantidad++;
+
 }else{
-carrito.push({
-nombre:p.nombre,
-precio:p.precio,
-precioMayor:p.precioMayor,
-minMayor:p.minMayor,
-cantidad:1
-});
-}
 
-localStorage.setItem("carrito",JSON.stringify(carrito));
+carrito[p.nombre] = {
+precio:p.precio,
+cantidad:1
+};
+
+}
 
 actualizarCarrito();
 
 }
 
-/* ================= ACTUALIZAR ================= */
+/* ================= MOSTRAR CARRITO ================= */
 
 function actualizarCarrito(){
 
@@ -364,47 +281,38 @@ panel.innerHTML = "";
 
 let total = 0;
 
-carrito.forEach(p=>{
+for(let p in carrito){
 
-let precio = p.cantidad>=p.minMayor ? p.precioMayor : p.precio;
-
-total += precio * p.cantidad;
+total += carrito[p].precio * carrito[p].cantidad;
 
 panel.innerHTML += `
-<p>${p.nombre} x${p.cantidad} = $${precio*p.cantidad}</p>
+
+<p>
+${p} x${carrito[p].cantidad}
+</p>
+
 `;
-
-});
-
-document.getElementById("contador").innerText = carrito.length;
-
-panel.innerHTML += "<hr>Total: $" + total;
 
 }
 
-/* ================= CARRITO ================= */
+panel.innerHTML += `<hr>Total: $${total}`;
+
+document.getElementById("count").innerText =
+Object.keys(carrito).length;
+
+localStorage.setItem("carrito",JSON.stringify(carrito));
+
+}
+
+/* ================= TOGGLE ================= */
 
 function toggleCarrito(){
 
 let p = document.getElementById("carritoPanel");
 
-p.style.display = p.style.display=="block" ? "none" : "block";
+p.style.display = p.style.display=="block"?"none":"block";
 
 }
-
-/* ================= BUSCADOR (ARREGLADO) ================= */
-
-document.getElementById("buscar").addEventListener("input",e=>{
-
-let t = e.target.value.toLowerCase();
-
-let filtrados = productos.filter(p =>
-p.nombre.toLowerCase().includes(t)
-);
-
-mostrar(filtrados);
-
-});
 
 </script>
 
