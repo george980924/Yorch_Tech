@@ -18,56 +18,66 @@ body{
 /* HEADER */
 
 header{
+    position:relative;
     text-align:center;
+}
+
+.banner{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    filter:brightness(0.5);
+}
+
+.titulo{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    font-size:40px;
+    font-weight:bold;
+}
+
+/* BOTONES */
+
+.topbar{
     background:#111;
     color:white;
+    text-align:center;
+    padding:8px;
+    font-size:13px;
+}
+
+/* BUSCADOR */
+
+.buscar{
+    text-align:center;
     padding:15px;
 }
 
-h1{
-    margin:0;
-}
-
-/* BOTÓN ADMIN */
-
-.admin-btn{
-    position:fixed;
-    top:15px;
-    right:15px;
-    background:#ff9800;
+.buscar input{
+    width:85%;
+    padding:12px;
+    border-radius:10px;
     border:none;
-    padding:10px 12px;
-    border-radius:10px;
+}
+
+/* BOTONES CATEGORÍA */
+
+.categorias{
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.categorias button{
+    padding:8px 12px;
+    margin:3px;
+    border:none;
+    background:#ff9800;
     color:white;
+    border-radius:20px;
     cursor:pointer;
-}
-
-/* PANEL ADMIN */
-
-.admin-panel{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-}
-
-.admin-box{
-    background:white;
-    padding:20px;
-    border-radius:10px;
-    width:300px;
-}
-
-.admin-box input{
-    width:100%;
-    padding:8px;
-    margin:5px 0;
 }
 
 /* PRODUCTOS */
@@ -75,21 +85,32 @@ h1{
 .productos{
     display:grid;
     grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-    gap:10px;
-    padding:10px;
+    gap:12px;
+    padding:12px;
 }
 
 .producto{
     background:white;
-    border-radius:10px;
-    padding:10px;
+    border-radius:15px;
+    overflow:hidden;
     text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+    position:relative;
 }
 
 .producto img{
     width:100%;
-    height:120px;
+    height:140px;
     object-fit:cover;
+}
+
+.producto h3{
+    font-size:14px;
+}
+
+.precio{
+    color:green;
+    font-weight:bold;
 }
 
 /* BOTÓN */
@@ -98,32 +119,80 @@ h1{
     background:#25D366;
     color:white;
     border:none;
-    width:100%;
     padding:8px;
-    margin-top:5px;
+    width:100%;
+    cursor:pointer;
+}
+
+/* FAVORITO */
+
+.heart{
+    position:absolute;
+    top:8px;
+    right:8px;
+    background:white;
+    border-radius:50%;
+    padding:5px;
+    cursor:pointer;
 }
 
 /* CARRITO */
 
-.carrito{
+.carrito-btn{
     position:fixed;
-    bottom:20px;
+    bottom:90px;
     right:20px;
     background:black;
     color:white;
-    padding:10px;
-    border-radius:10px;
+    padding:10px 15px;
+    border-radius:20px;
     cursor:pointer;
 }
 
-.panel-carrito{
+.carrito{
     position:fixed;
-    bottom:70px;
+    bottom:140px;
     right:20px;
-    width:250px;
+    width:280px;
     background:white;
+    border-radius:10px;
     padding:10px;
     display:none;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+}
+
+.carrito button{
+    width:100%;
+    margin-top:8px;
+    padding:8px;
+    background:orange;
+    border:none;
+    color:white;
+}
+
+/* WHATSAPP */
+
+.wa{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+}
+
+/* SECCIÓN EXTRA */
+
+.section-title{
+    padding:10px;
+    font-weight:bold;
+    font-size:18px;
 }
 
 </style>
@@ -132,80 +201,96 @@ h1{
 
 <body>
 
+<div class="topbar">
+🚚 Envíos en Holguín
+</div>
+
 <header>
-<h1>YORCH TECH</h1>
+
+<img src="banner.png" class="banner">
+
+<div class="titulo">YORCH TECH</div>
+
 </header>
 
-<button class="admin-btn" onclick="abrirAdmin()">
-⚙ Admin
-</button>
+<!-- BUSCADOR -->
 
-<!-- PANEL ADMIN -->
-
-<div class="admin-panel" id="admin">
-
-<div class="admin-box">
-
-<h3>Panel Admin</h3>
-
-<input id="nombre" placeholder="Nombre producto">
-<input id="precio" placeholder="Precio">
-<input id="img" placeholder="Imagen URL">
-<input id="cat" placeholder="Categoría">
-
-<button onclick="agregarProducto()">
-Agregar
-</button>
-
-<button onclick="cerrarAdmin()">
-Cerrar
-</button>
-
+<div class="buscar">
+<input id="buscar" placeholder="Buscar...">
 </div>
+
+<!-- BOTONES -->
+
+<div class="categorias">
+
+<button onclick="filtrar('todos')">Todos</button>
+<button onclick="filtrar('BMS')">BMS</button>
+<button onclick="verFavoritos()">Favoritos ❤️</button>
+<button onclick="verTop()">Más vendidos 🔥</button>
 
 </div>
 
 <!-- PRODUCTOS -->
 
+<div class="section-title" id="tituloSeccion">Productos</div>
+
 <div class="productos" id="productos"></div>
 
 <!-- CARRITO -->
 
-<div class="carrito" onclick="toggleCarrito()">
-🛒 <span id="count">0</span>
+<div class="carrito-btn" onclick="toggleCarrito()">
+🛒 <span id="contador">0</span>
 </div>
 
-<div class="panel-carrito" id="carritoPanel"></div>
+<div class="carrito" id="carrito">
+
+<h4>Tu carrito</h4>
+
+<div id="lista"></div>
+
+<p><b>Total: $<span id="total">0</span></b></p>
+
+<button onclick="enviar()">Finalizar</button>
+
+</div>
+
+<!-- WHATSAPP -->
+
+<a class="wa" href="https://wa.me/5358103725">💬</a>
+
+<script src="productos.js"></script>
 
 <script>
 
-/* ================= DATOS ================= */
-
-let productos = JSON.parse(localStorage.getItem("productos")) || [];
-
 let carrito = {};
+let favoritos = [];
+let vendidos = {};
 
-/* ================= MOSTRAR ================= */
-
-function mostrar(){
+function mostrar(lista){
 
 let cont = document.getElementById("productos");
 
 cont.innerHTML = "";
 
-productos.forEach((p,i)=>{
+lista.forEach(p=>{
+
+if(!vendidos[p.nombre]) vendidos[p.nombre]=0;
 
 cont.innerHTML += `
 
 <div class="producto">
 
-<img src="${p.img}">
+<div class="heart" onclick="fav('${p.nombre}')">
+❤
+</div>
 
-<h4>${p.nombre}</h4>
+<img src="${p.imagen}">
 
-<p>$${p.precio}</p>
+<h3>${p.nombre}</h3>
 
-<button class="btn" onclick="agregar(${i})">
+<p class="precio">$${p.precio}</p>
+
+<button class="btn" onclick="agregar('${p.nombre}',${p.precio})">
 Agregar
 </button>
 
@@ -217,100 +302,166 @@ Agregar
 
 }
 
-mostrar();
+mostrar(productos);
 
-/* ================= ADMIN ================= */
+/* CARRITO INTELIGENTE */
 
-function abrirAdmin(){
-document.getElementById("admin").style.display="flex";
-}
+function agregar(nombre,precio){
 
-function cerrarAdmin(){
-document.getElementById("admin").style.display="none";
-}
+if(carrito[nombre]){
 
-function agregarProducto(){
-
-let p = {
-nombre:document.getElementById("nombre").value,
-precio:parseFloat(document.getElementById("precio").value),
-img:document.getElementById("img").value,
-cat:document.getElementById("cat").value
-};
-
-productos.push(p);
-
-localStorage.setItem("productos",JSON.stringify(productos));
-
-mostrar();
-
-cerrarAdmin();
-
-}
-
-/* ================= CARRITO ================= */
-
-function agregar(i){
-
-let p = productos[i];
-
-if(carrito[p.nombre]){
-
-carrito[p.nombre].cantidad++;
+carrito[nombre].cantidad++;
 
 }else{
 
-carrito[p.nombre] = {
-precio:p.precio,
-cantidad:1
-};
+carrito[nombre] = {precio:precio,cantidad:1};
 
 }
 
-actualizarCarrito();
+vendidos[nombre]++;
+
+actualizar();
 
 }
 
-/* ================= MOSTRAR CARRITO ================= */
+/* ACTUALIZAR */
 
-function actualizarCarrito(){
+function actualizar(){
 
-let panel = document.getElementById("carritoPanel");
+let lista = document.getElementById("lista");
 
-panel.innerHTML = "";
+lista.innerHTML = "";
 
 let total = 0;
 
 for(let p in carrito){
 
-total += carrito[p].precio * carrito[p].cantidad;
+let item = carrito[p];
 
-panel.innerHTML += `
+total += item.precio * item.cantidad;
+
+lista.innerHTML += `
 
 <p>
-${p} x${carrito[p].cantidad}
+
+${p} x${item.cantidad}
+
+= $${item.precio * item.cantidad}
+
 </p>
 
 `;
 
 }
 
-panel.innerHTML += `<hr>Total: $${total}`;
+document.getElementById("total").innerText = total;
 
-document.getElementById("count").innerText =
+document.getElementById("contador").innerText =
 Object.keys(carrito).length;
-
-localStorage.setItem("carrito",JSON.stringify(carrito));
 
 }
 
-/* ================= TOGGLE ================= */
+/* FAVORITOS */
+
+function fav(nombre){
+
+if(favoritos.includes(nombre)){
+
+favoritos = favoritos.filter(f=>f!=nombre);
+
+}else{
+
+favoritos.push(nombre);
+
+}
+
+alert("Actualizado favoritos");
+
+}
+
+/* VER FAVORITOS */
+
+function verFavoritos(){
+
+let lista = productos.filter(p=>favoritos.includes(p.nombre));
+
+document.getElementById("tituloSeccion").innerText = "Favoritos";
+
+mostrar(lista);
+
+}
+
+/* TOP VENDIDOS */
+
+function verTop(){
+
+let top = productos.sort((a,b)=> (vendidos[b.nombre]||0)-(vendidos[a.nombre]||0));
+
+document.getElementById("tituloSeccion").innerText = "Más vendidos";
+
+mostrar(top);
+
+}
+
+/* FILTRO */
+
+function filtrar(cat){
+
+if(cat=="todos"){
+
+document.getElementById("tituloSeccion").innerText="Productos";
+
+mostrar(productos);
+
+return;
+
+}
+
+let f = productos.filter(p=>p.categoria==cat);
+
+mostrar(f);
+
+}
+
+/* CARRITO */
 
 function toggleCarrito(){
 
-let p = document.getElementById("carritoPanel");
+let c = document.getElementById("carrito");
 
-p.style.display = p.style.display=="block"?"none":"block";
+c.style.display = c.style.display=="block"?"none":"block";
+
+}
+
+/* BUSCAR */
+
+document.getElementById("buscar").addEventListener("input",e=>{
+
+let t = e.target.value.toLowerCase();
+
+mostrar(productos.filter(p=>p.nombre.toLowerCase().includes(t)));
+
+});
+
+/* ENVIAR */
+
+function enviar(){
+
+let msg = "Pedido:%0A";
+
+let total = 0;
+
+for(let p in carrito){
+
+msg += `${p} x${carrito[p].cantidad}%0A`;
+
+total += carrito[p].precio * carrito[p].cantidad;
+
+}
+
+msg += `%0ATotal: $${total}`;
+
+window.open("https://wa.me/5358103725?text="+msg);
 
 }
 
